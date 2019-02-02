@@ -60,14 +60,12 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
   componentDidMount() {
     this.socket.on('player_join_response', (data: any) => {
       if (data.status === 'failure') {
-        this.room_code = '';
         this.setState({
           room_code_failure: true,
           room_code_fail_reason: data.aux_data
         });
       } else {
-        //this.room_code = data.aux_data.room_code;
-        //this.character = data.aux_data.character;
+        this.character = data.aux_data.character;
         this.setState({
           display: 'controller'
         });
