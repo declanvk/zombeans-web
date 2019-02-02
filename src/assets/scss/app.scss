@@ -1,19 +1,9 @@
 $bg-color: #a36e49;
 
-@font-face {
-   font-family: 'Billy Forges';
-   src: url('../fonts/Billyforges\ Vintage.ttf');
-}
-
-@font-face {
-   font-family: 'Caviar Dreams';
-   src: url('../fonts/CaviarDreams.ttf');
-}
-
-@font-face {
-   font-family: 'Caviar Dreams Bold';
-   src: url('../fonts/Caviar_Dreams_Bold.ttf');
-}
+// @font-face {
+//    font-family: 'Billy Forges';
+//    src: url('../fonts/Billyforges\ Vintage.ttf');
+// }
 
 body {
   margin: 0;
@@ -107,16 +97,11 @@ body {
   box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
 
    p {
-      font-family: 'Caviar Dreams';
       line-height: 45px;
       margin: auto;
       font-size: 25px;
       text-align: center;
    }
-   .z-bold {
-    font-family: 'Caviar Dreams Bold';
-  }
-
 }
 
 .z-landing-players-container {
@@ -159,7 +144,6 @@ body {
    margin-left: 50px;
 
    p {
-      font-family: 'Caviar Dreams Bold';
       font-size: 20px;
       line-height: 0px;
    }

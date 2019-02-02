@@ -21,7 +21,7 @@ namespace App {
 }
 
 export
-default class App extends React.Component<undefined, App.IState> {
+default class App extends React.Component<any, App.IState> {
 
   socket: SocketIO.Socket;
 
@@ -33,17 +33,20 @@ default class App extends React.Component<undefined, App.IState> {
       room_code: '000000',
       users: []
     };
-    this.socket = io('/game/web');
-    this.transitionToGame = this.transitionToGame.bind(this)
+   // this.socket = io('/game/web');
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
-  transitionToGame() {
-    this.setState({
-      display: 'game'
-    });
+  handleKeyPress(evt: any) {
+    if(evt.key == 't') {
+      this.setState({
+        display: 'game'
+      });
+    }
   }
 
   componentDidMount() {
+    document.addEventListener("keydown", this.handleKeyPress);
     // this.socket.on('room_code', (data: any) => {
     //    this.setState({
     //       room_code: data.room_code
@@ -72,9 +75,6 @@ default class App extends React.Component<undefined, App.IState> {
         <PageTransition>
           {page}
         </PageTransition>
-        <div className={'z-force-transition'}>
-
-        </div>
       </div>
     );
   }
