@@ -1,11 +1,9 @@
-import * as React from "react";
-import * as ReactDom from 'react-dom';
-import * as PropTypes from 'prop-types';
+import React from 'react';
+import ReactDom from 'react-dom';
+import PropTypes from 'prop-types';
 import Queue from 'promise-queue';
 
-export default class PageTransition extends React.Component<any, any> {
-  queue: any;
-  state: any;
+export default class PageTransition extends React.Component {
   static compareChildren(prevChild, nextChild) {
     if (
       prevChild &&
@@ -45,9 +43,9 @@ export default class PageTransition extends React.Component<any, any> {
 
   componentDidMount() {
     if (!this.props.animateOnInit) {
-      const child = this.getRef('child1') as any;
+      const child = this.getRef('child1');
       if (child) {
-        const dom = ReactDom.findDOMNode(child) as any;
+        const dom = ReactDom.findDOMNode(child);
         child.onTransitionDidEnd && child.onTransitionDidEnd(this.props.data);
         dom.classList.remove('transition-item');
         if (this.hasTransitionAction()) {
