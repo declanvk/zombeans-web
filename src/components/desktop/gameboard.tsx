@@ -27,7 +27,7 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
 
   constructor(props: any) {
     super(props);
-    this.socket = io('/player');
+    this.socket = io('/viewer');
    // this.socket = io('some endpoint');
   }
 
@@ -35,16 +35,21 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
     // Send room code over socket
     this.canvas = (document.getElementById(CANVAS_ID) as HTMLCanvasElement);
     this.ctx = this.canvas.getContext('2d');
-    this.socket.on('player_join_response', (data: any) => {
+    this.socket.on('game_starting', (data: any) => {
       this.boardSize[0] = data["position"].x;
       this.boardSize[1] = data["position"].y
       this.playerRadius = data["playerRadius"];
+      console.log("game starting message");
     });
     this.socket.on('game_tick', (data: any) => {
       this.players = data[0]
       this.gameState = data[1];
       this.draw();
     });
+    this.socket.on("game_view_response", (data:any) => {
+      console.log(data);
+    });
+    this.socket.emit("request_game_view", {"room_code":this.props.room_code})
     this.mimic_server();
     this.draw();
 
@@ -59,6 +64,7 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
     this.ctx.moveTo(0,0);
     this.ctx.clearRect(0,0,this.boardSize[0], this.boardSize[1]);
     this.makeBoard();
+    this.players[1]["position"].x += 10;
     for(var i in this.players){
         this.drawPlayer(this.players[i]["position"], this.playerRadius, i);
     }

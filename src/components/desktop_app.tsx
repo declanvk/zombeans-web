@@ -43,6 +43,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
       this.setState({
         display: 'game',
       });
+      this.socket.emit("request_start_game",{});
     }
   }
 
