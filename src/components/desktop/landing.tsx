@@ -15,10 +15,11 @@ class DesktopLanding extends React.Component<Landing.IProps, undefined> {
   render() {
     return (
       <div className={'z-desktop-landing-page transition-item'} >
-        <div className={'z-desktop-landing-header-spacer'} />
         <img className="logo" src="../../../src/assets/img/logo.png" />
+        
+        <p>Go to www.join-game.com on your phone <br></br> and enter the room code:</p>
         <div className={'z-desktop-landing-code'} >
-          <p>Your room code is: <span className="z-bold">{this.props.room_code}</span></p>
+          <p><span className="z-bold">{this.props.room_code}</span></p>
         </div>
         <div className={'z-desktop-landing-players-container'}>
 
