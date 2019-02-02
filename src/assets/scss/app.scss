@@ -1,13 +1,21 @@
-$bg-color: #a36e49;
+// color scheme
+$purple: #38115a;
+$darkblue: #1e3c6a;
+$lightblue: #5ba2cd;
+$green: #b2d235;
 
-// @font-face {
-//    font-family: 'Billy Forges';
-//    src: url('../fonts/Billyforges\ Vintage.ttf');
-// }
-
+html {
+  height: 100%;
+}
 body {
+  height: 100%;
   margin: 0;
   padding: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: $lightblue; //fallback
+  background-image: linear-gradient($darkblue, $lightblue);
+
 }
 
 .transition-wrapper {
