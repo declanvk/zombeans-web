@@ -15,8 +15,8 @@ namespace MobileApp {
   export
   interface IState {
     display: 'landing' | 'controller';
-    room_code: string;
-    users: IUser[];
+    room_code_failure: boolean;
+    room_code_fail_reason: string;
   }
 }
 
@@ -24,21 +24,31 @@ export
 default class MobileApp extends React.Component<any, MobileApp.IState> {
 
   socket: SocketIO.Socket;
+  room_code: string;
+  user_name: string;
+  character: string;
+
+  static compareChildren(prevChild: any, nextChild: any) {
+    return prevChild.type === nextChild.type;
+  }
 
   constructor(props: any) {
     super(props);
 
     this.state = {
       display: 'landing',
-      room_code: '000000',
-      users: []
+      room_code_failure: false,
+      room_code_fail_reason: ''
     };
+    this.room_code = '';
 
     this.socket = io('/player');
     this.joinGame = this.joinGame.bind(this);
   }
 
   joinGame(room_code: string, name: string) {
+    this.room_code = room_code;
+    this.user_name = name;
     let join_request = {
       pkt_name: 'player_join_request',
       room_code: room_code,
@@ -49,7 +59,19 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
 
   componentDidMount() {
     this.socket.on('player_join_response', (data: any) => {
-       console.log(data);
+      if (data.status === 'failure') {
+        this.room_code = '';
+        this.setState({
+          room_code_failure: true,
+          room_code_fail_reason: data.aux_data
+        });
+      } else {
+        //this.room_code = data.aux_data.room_code;
+        //this.character = data.aux_data.character;
+        this.setState({
+          display: 'controller'
+        });
+      }
     });
   }
 
@@ -57,13 +79,15 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     let page: any;
 
     if (this.state.display == 'landing')
-      page = (<MobileLanding submit_form={this.joinGame} />);
+      page = (<MobileLanding submit_form={this.joinGame}
+          room_code_failure={this.state.room_code_failure}
+          room_code_fail_reason={this.state.room_code_fail_reason}/>);
     else
-      page = (<Controller room_code={this.state.room_code} />);
+      page = (<Controller user_name={this.user_name} room_code={this.room_code} />);
 
     return (
       <div>
-        <PageTransition>
+        <PageTransition compareChildren={MobileApp.compareChildren}>
           {page}
         </PageTransition>
       </div>

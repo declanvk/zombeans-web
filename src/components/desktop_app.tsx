@@ -18,11 +18,12 @@ namespace DesktopApp {
 
 export
 default class DesktopApp extends React.Component<any, DesktopApp.IState> {
+
+  socket: SocketIO.Socket;
+
   static compareChildren(prevChild: any, nextChild: any) {
     return prevChild.type === nextChild.type;
   }
-
-  socket: SocketIO.Socket;
 
   constructor(props: any) {
     super(props);

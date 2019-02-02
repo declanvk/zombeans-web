@@ -9,6 +9,7 @@ namespace Controller {
   export
   interface IProps {
     room_code: string;
+    user_name: string;
   }
 }
 
@@ -27,7 +28,8 @@ class Controller extends React.Component<Controller.IProps, any> {
   render() {
     return (
       <div className='z-mobile-controller transition-item' >
-
+        <p>{this.props.user_name}</p>
+        <p>{this.props.room_code}</p>
       </div>
     );
   }
