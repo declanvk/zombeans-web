@@ -81,7 +81,8 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
           room_code_failure={this.state.room_code_failure}
           room_code_fail_reason={this.state.room_code_fail_reason}/>);
     else
-      page = (<Controller user_name={this.user_name} room_code={this.room_code} />);
+      page = (<Controller user_name={this.user_name} room_code={this.room_code}
+          character={this.character} />);
 
     return (
       <div>
