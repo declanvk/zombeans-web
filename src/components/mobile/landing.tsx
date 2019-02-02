@@ -11,7 +11,7 @@ namespace Landing {
 }
 
 export
-class Landing extends React.Component<Landing.IProps, undefined> {
+class MobileLanding extends React.Component<Landing.IProps, undefined> {
   render() {
     return (
       <div className='z-landing-page transition-item'>

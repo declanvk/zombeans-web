@@ -4,7 +4,7 @@ import * as io from "socket.io-client";
 const CANVAS_ID = 'z-gameboard-canvas-id';
 
 export
-namespace MobileController {
+namespace Controller {
 
   export
   interface IProps {
@@ -13,7 +13,7 @@ namespace MobileController {
 }
 
 export
-class MobileController extends React.Component<MobileController.IProps, undefined> {
+class Controller extends React.Component<Controller.IProps, any> {
 
   socket: SocketIO.Socket;
   canvas: HTMLCanvasElement;

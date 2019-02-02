@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as io from "socket.io-client";
 import { GameBoard } from './desktop/gameboard';
-import { Landing } from './desktop/landing';
+import { DesktopLanding } from './desktop/landing';
 import PageTransition from 'react-router-page-transition';
 import "./../assets/scss/app.scss";
 
@@ -70,7 +70,7 @@ default class App extends React.Component<any, App.IState> {
     let page: any;
 
     if (this.state.display == 'landing')
-      page = (<Landing room_code={this.state.room_code} users={this.state.users} />);
+      page = (<DesktopLanding room_code={this.state.room_code} users={this.state.users} />);
     else
       page = (<GameBoard room_code={this.state.room_code} />);
 

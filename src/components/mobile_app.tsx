@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as io from "socket.io-client";
-import { MobileController } from './mobile/controller';
-import { Landing } from './mobile/landing';
+import { Controller } from './mobile/controller';
+import { MobileLanding } from './mobile/landing';
 import PageTransition from 'react-router-page-transition';
 import "./../assets/scss/app.scss";
 
@@ -65,9 +65,9 @@ default class App extends React.Component<any, App.IState> {
     let page: any;
 
     if (this.state.display == 'landing')
-      page = (<Landing room_code={this.state.room_code} users={this.state.users} />);
+      page = (<MobileLanding room_code={this.state.room_code} users={this.state.users} />);
     else
-      page = (<MobileController room_code={this.state.room_code} />);
+      page = (<Controller room_code={this.state.room_code} />);
 
     return (
       <div>
