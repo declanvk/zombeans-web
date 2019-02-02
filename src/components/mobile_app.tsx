@@ -6,7 +6,7 @@ import PageTransition from 'react-router-page-transition';
 import "./../assets/scss/app.scss";
 
 export
-namespace App {
+namespace MobileApp {
   export
   interface IUser {
     name: string;
@@ -21,7 +21,7 @@ namespace App {
 }
 
 export
-default class App extends React.Component<any, App.IState> {
+default class MobileApp extends React.Component<any, MobileApp.IState> {
 
   socket: SocketIO.Socket;
 
@@ -33,39 +33,32 @@ default class App extends React.Component<any, App.IState> {
       room_code: '000000',
       users: []
     };
-   // this.socket = io('/game/web');
-    this.handleKeyPress = this.handleKeyPress.bind(this);
+
+    this.socket = io('/player');
+    this.joinGame = this.joinGame.bind(this);
   }
 
-  handleKeyPress(evt: any) {
-    if(evt.key == 't') {
-      this.setState({
-        display: 'controller'
-      });
+  joinGame(room_code: string, name: string) {
+    let join_request = {
+      pkt_name: 'player_join_request',
+      room_code: room_code,
+      user_name: name
     }
+    console.log(join_request);
+    this.socket.emit('player_join_request', join_request);
   }
 
   componentDidMount() {
-    // this.socket.on('room_code', (data: any) => {
-    //    this.setState({
-    //       room_code: data.room_code
-    //    });
-    // });
-    // this.socket.on('player_joined', (data: any) => {
-    //    let users = data.players.map((user: any) => {
-    //       return {name: user.name, character: user.character}
-    //    });
-    //    this.setState({
-    //       users: users
-    //    });
-    // });
+    this.socket.on('player_join_response', (data: any) => {
+       console.log(data);
+    });
   }
 
   render() {
     let page: any;
 
     if (this.state.display == 'landing')
-      page = (<MobileLanding room_code={this.state.room_code} users={this.state.users} />);
+      page = (<MobileLanding submit_form={this.joinGame} />);
     else
       page = (<Controller room_code={this.state.room_code} />);
 

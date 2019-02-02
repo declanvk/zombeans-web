@@ -3,15 +3,11 @@ import * as io from "socket.io-client";
 import { GameBoard } from './desktop/gameboard';
 import { DesktopLanding } from './desktop/landing';
 import PageTransition from 'react-router-page-transition';
+import {IUser} from '../types';
 import "./../assets/scss/app.scss";
 
 export
-namespace App {
-  export
-  interface IUser {
-    name: string;
-    character: string;
-  }
+namespace DesktopApp {
   export
   interface IState {
     display: 'landing' | 'game';
@@ -21,7 +17,7 @@ namespace App {
 }
 
 export
-default class App extends React.Component<any, App.IState> {
+default class DesktopApp extends React.Component<any, DesktopApp.IState> {
   static compareChildren(prevChild: any, nextChild: any) {
     return prevChild.type === nextChild.type;
   }
@@ -76,7 +72,7 @@ default class App extends React.Component<any, App.IState> {
 
     return (
       <div>
-        <PageTransition compareChildren={App.compareChildren}>
+        <PageTransition compareChildren={DesktopApp.compareChildren}>
           {page}
         </PageTransition>
       </div>

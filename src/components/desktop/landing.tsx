@@ -1,13 +1,12 @@
 import * as React from "react";
-import { App } from "../desktop_app";
-
+import {IUser} from '../../types';
 
 export
 namespace Landing {
   export
     interface IProps {
     room_code: string;
-    users: App.IUser[];
+    users: IUser[];
   }
 }
 
@@ -15,12 +14,12 @@ export
 class DesktopLanding extends React.Component<Landing.IProps, undefined> {
   render() {
     return (
-      <div className={'z-landing-page transition-item'} >
-        <div className={'z-landing-header-spacer'} />
-        <div className={'z-landing-code'} >
+      <div className={'z-desktop-landing-page transition-item'} >
+        <div className={'z-desktop-landing-header-spacer'} />
+        <div className={'z-desktop-landing-code'} >
           <p>Your lounge code is: <span className="z-bold">{this.props.room_code}</span></p>
         </div>
-        <div className={'z-landing-players-container'}>
+        <div className={'z-desktop-landing-players-container'}>
 
         </div>
       </div>

@@ -38,7 +38,7 @@ body {
    }
 }
 
-.z-landing-page {
+.z-desktop-landing-page {
    transition: transform 0.5s, opacity 0.5s;
 
    &.transition-appear {
@@ -84,7 +84,7 @@ body {
    }
 }
 
-.z-landing-code {
+.z-desktop-landing-code {
   position: fixed;
   top:230px;
   left: 50%;
@@ -104,7 +104,7 @@ body {
    }
 }
 
-.z-landing-players-container {
+.z-desktop-landing-players-container {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -133,7 +133,7 @@ body {
 
 }
 
-.z-landing-players-name {
+.z-desktop-landing-players-name {
    background-color: white;
    text-align: center;
    border-radius: 3px;
