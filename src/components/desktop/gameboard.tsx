@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as io from "socket.io-client";
 
-const CANVAS_ID = 'z-gameboard-canvas-id';
+const CANVAS_ID = 'z-desktop-gameboard-canvas-id';
 
 export
 namespace GameBoard {
@@ -64,9 +64,9 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
   }
   render() {
     return (
-      <div className={'z-game-board transition-item'}>
+      <div className={'z-desktop-gameboard transition-item'}>
         <canvas id={CANVAS_ID} height={800} width={1024}
-            className={'z-gameboard-canvas'}/>
+            className={'z-desktop-gameboard-canvas'}/>
       </div>
     );
   }

@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import { AppContainer } from "react-hot-loader";
 import DesktopApp from "./components/desktop_app";
 import MobileApp from "./components/mobile_app";
+import "./assets/scss/app.scss";
 
 const rootEl = document.getElementById("root");
 
