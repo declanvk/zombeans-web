@@ -1,8 +1,11 @@
-.z-desktop-header-spacer {
-   height: 50px;
-}
 
 .z-desktop-landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 3%;
+
    transition: transform 0.5s, opacity 0.5s;
 
    &.transition-appear {
@@ -49,28 +52,25 @@
 }
 
 .z-desktop-landing-code {
-  position: fixed;
-  top:230px;
-  left: 50%;
-  transform: translateX(-50%);
+  border: 3px solid;
+  padding: 10px 55px;
   background-color: #FFFFFF;
-  width: 475px;
   border-radius: 5px;
   -webkit-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
   -moz-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
   box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
 
    p {
+      letter-spacing: 13px;
       line-height: 45px;
       margin: auto;
-      font-size: 25px;
+      font-size: 40px;
       text-align: center;
    }
 }
 
 .z-desktop-landing-players-container {
   display: flex;
-  flex-direction: row;
   justify-content: space-evenly;
   position: fixed;
   width: 100%;
@@ -83,5 +83,6 @@
 
 
 .logo {
-  width: 30%;
+  width: 45%;
+  margin-left: -8%;
 }
