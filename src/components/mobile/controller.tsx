@@ -1,5 +1,7 @@
 import * as React from "react";
 import * as io from "socket.io-client";
+import {IUser} from '../../types';
+import {characters} from "../../data";
 
 const CANVAS_ID = 'z-gameboard-canvas-id';
 
@@ -11,9 +13,8 @@ namespace Controller {
   }
   export
   interface IProps {
+    user: IUser;
     room_code: string;
-    user_name: string;
-    character: string;
   }
 }
 
@@ -60,11 +61,13 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
         </div>
       )
     }
+
     return (
       <div className='z-mobile-controller transition-item'
           style={{height: window.innerHeight, width: window.innerWidth}}>
         <div className='z-mobile-controller-player'>
-          <h1>{this.props.user_name}</h1>
+          <h1>{this.props.user.name}</h1>
+          <img src={characters[this.props.user.character].normal_img}/>
         </div>
         <div className='z-mobile-controller-controller'>
           <DirectionalPad on_press={this.onPress}
