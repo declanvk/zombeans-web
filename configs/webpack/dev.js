@@ -14,7 +14,7 @@ module.exports = merge(commonConfig, {
   devServer: {
     hot: true, // enable HMR on the server
     proxy: {
-      '/host':'http://localhost'
+      '/socket.io':'http://localhost:8000'
     }
   },
   devtool: 'cheap-module-eval-source-map',

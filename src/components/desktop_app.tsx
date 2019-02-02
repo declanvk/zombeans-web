@@ -33,7 +33,7 @@ default class App extends React.Component<any, App.IState> {
       room_code: '000000',
       users: []
     };
-   // this.socket = io('/game/web');
+    this.socket = io('/host');
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
@@ -47,11 +47,11 @@ default class App extends React.Component<any, App.IState> {
 
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyPress);
-    // this.socket.on('room_code', (data: any) => {
-    //    this.setState({
-    //       room_code: data.room_code
-    //    });
-    // });
+    this.socket.on('room_code', (data: any) => {
+       this.setState({
+          room_code: data.room_code
+       });
+    });
     // this.socket.on('player_joined', (data: any) => {
     //    let users = data.players.map((user: any) => {
     //       return {name: user.name, character: user.character}
