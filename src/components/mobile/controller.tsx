@@ -45,6 +45,7 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
 
   onPress(evt: any, dir: string) {
     console.log('Press: ' + dir);
+    evt.stopPropagation();
   }
 
   onRelease(evt: any, dir: string) {
@@ -90,27 +91,32 @@ const DirectionalPad = (props: DirectionalPad.IProps) => {
       <div className='z-mobile-dpad-col'>
         <div className='z-mobile-dpad-left z-mobile-dpad-button'
             onTouchStart={(evt)=>props.on_press(evt, 'left')}
-            onTouchEnd={(evt)=>props.on_release(evt, 'left')}>
+            onTouchEnd={(evt)=>props.on_release(evt, 'left')}
+            onContextMenu={(evt)=>evt.preventDefault()}>
+
           
         </div>
       </div>
       <div className='z-mobile-dpad-col'>
         <div className='z-mobile-dpad-up z-mobile-dpad-button'
             onTouchStart={(evt)=>props.on_press(evt, 'up')}
-            onTouchEnd={(evt)=>props.on_release(evt, 'up')}>
+            onTouchEnd={(evt)=>props.on_release(evt, 'up')}
+            onContextMenu={(evt)=>evt.preventDefault()}>
           
         </div>
         <div className='z-mobile-dpad-button z-mobile-dpad-spacer' />
         <div className='z-mobile-dpad-down z-mobile-dpad-button'
             onTouchStart={(evt)=>props.on_press(evt, 'down')}
-            onTouchEnd={(evt)=>props.on_release(evt, 'down')}>
+            onTouchEnd={(evt)=>props.on_release(evt, 'down')}
+            onContextMenu={(evt)=>evt.preventDefault()}>
           
         </div>
       </div>
       <div className='z-mobile-dpad-col'>
         <div className='z-mobile-dpad-right z-mobile-dpad-button'
             onTouchStart={(evt)=>props.on_press(evt, 'right')}
-            onTouchEnd={(evt)=>props.on_release(evt, 'right')}>
+            onTouchEnd={(evt)=>props.on_release(evt, 'right')}
+            onContextMenu={(evt)=>evt.preventDefault()}>
           
         </div>
       </div>
