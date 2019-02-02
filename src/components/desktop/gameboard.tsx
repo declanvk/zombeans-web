@@ -7,7 +7,7 @@ export
 namespace GameBoard {
 
   export
-    interface IProps {
+  interface IProps {
     room_code: string;
   }
 }
@@ -35,7 +35,7 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
 
   render() {
     return (
-      <div>
+      <div className={'z-game-board transition-item'}>
         <canvas id={CANVAS_ID} height={800} width={1024}
             className={'z-gameboard-canvas'}/>
       </div>

@@ -22,6 +22,9 @@ namespace App {
 
 export
 default class App extends React.Component<any, App.IState> {
+  static compareChildren(prevChild: any, nextChild: any) {
+    return prevChild.type === nextChild.type;
+  }
 
   socket: SocketIO.Socket;
 
@@ -33,6 +36,7 @@ default class App extends React.Component<any, App.IState> {
       room_code: '000000',
       users: []
     };
+
     this.socket = io('/host');
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
@@ -40,7 +44,7 @@ default class App extends React.Component<any, App.IState> {
   handleKeyPress(evt: any) {
     if(evt.key == 't') {
       this.setState({
-        display: 'game'
+        display: 'game',
       });
     }
   }
@@ -72,7 +76,7 @@ default class App extends React.Component<any, App.IState> {
 
     return (
       <div>
-        <PageTransition>
+        <PageTransition compareChildren={App.compareChildren}>
           {page}
         </PageTransition>
       </div>
