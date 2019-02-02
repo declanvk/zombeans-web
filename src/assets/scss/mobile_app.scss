@@ -104,12 +104,11 @@ $in-w: $n-char*($char-w + $gap);
 
 .z-mobile-dpad-button {
    background: green;
-   border: 2px black solid;
    height: 100px;
    width: 100px;
 }
 
 .z-mobile-dpad-spacer {
-   background: white;
+   background: none;
    border: none;
 }
