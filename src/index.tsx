@@ -29,17 +29,17 @@ render(
 );
 
 // Hot Module Replacement API
-// declare let module: { hot: any };
+declare let module: { hot: any };
 
-// if (module.hot) {
-//   module.hot.accept(app_file, () => {
-//     const NewApp = require(app_file).default;
+if (module.hot) {
+  module.hot.accept(app_file, () => {
+    const NewApp = require(app_file).default;
 
-//     render(
-//       <AppContainer>
-//         <NewApp />
-//       </AppContainer>,
-//       rootEl
-//     );
-//   });
-// }
+    render(
+      <AppContainer>
+        <NewApp />
+      </AppContainer>,
+      rootEl
+    );
+  });
+}

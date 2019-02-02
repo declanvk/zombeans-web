@@ -3,15 +3,11 @@ import * as io from "socket.io-client";
 import { Controller } from './mobile/controller';
 import { MobileLanding } from './mobile/landing';
 import PageTransition from 'react-router-page-transition';
+import { IUser } from "../types";
 import "./../assets/scss/mobile_app.scss";
 
 export
 namespace MobileApp {
-  export
-  interface IUser {
-    name: string;
-    character: string;
-  }
   export
   interface IState {
     display: 'landing' | 'controller';
@@ -25,8 +21,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
 
   socket: SocketIO.Socket;
   room_code: string;
-  user_name: string;
-  character: string;
+  user: IUser;
 
   static compareChildren(prevChild: any, nextChild: any) {
     return prevChild.type === nextChild.type;
@@ -40,6 +35,10 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
       room_code_failure: false,
       room_code_fail_reason: ''
     };
+    this.user = {
+      name: '',
+      character: 0
+    }
     this.room_code = '';
 
     this.socket = io('/player');
@@ -48,7 +47,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
 
   joinGame(room_code: string, name: string) {
     this.room_code = room_code;
-    this.user_name = name;
+    this.user.name = name;
     let join_request = {
       pkt_name: 'player_join_request',
       room_code: room_code,
@@ -65,7 +64,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
           room_code_fail_reason: data.aux_data
         });
       } else {
-        this.character = data.aux_data.character;
+        this.user.character = data.aux_data.character;
         this.setState({
           display: 'controller'
         });
@@ -81,8 +80,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
           room_code_failure={this.state.room_code_failure}
           room_code_fail_reason={this.state.room_code_fail_reason}/>);
     else
-      page = (<Controller user_name={this.user_name} room_code={this.room_code}
-          character={this.character} />);
+      page = (<Controller room_code={this.room_code} user={this.user} />);
 
     return (
       <div>
