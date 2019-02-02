@@ -6,8 +6,30 @@
    background: red;
 }
 
+$char-w: 1ch;
+$gap: .5*$char-w;
+$n-char: 6;
+$in-w: $n-char*($char-w + $gap);
+
 .z-mobile-landing-page {
    transition: transform 0.5s, opacity 0.5s;
+
+   input.z-mobile-landing-form-code {
+      border: none;
+      padding: 0;
+      width: $in-w;
+      background: repeating-linear-gradient(90deg, 
+         dimgrey 0, dimgrey $char-w, 
+         transparent 0, transparent $char-w + $gap) 
+         0 100%/ #{$in-w - $gap} 2px no-repeat;
+      font: 5ch droid sans mono, consolas, monospace;
+      letter-spacing: $gap;
+      
+      &:focus {
+         outline: none;
+         color: dodgerblue;
+      }
+   }
 
    &.transition-appear {
       opacity: 0;

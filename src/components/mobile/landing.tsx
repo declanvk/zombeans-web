@@ -52,14 +52,15 @@ class MobileLanding extends React.Component<MobileLanding.IProps, MobileLanding.
         </div>
         <div className={'z-mobile-landing-form'} >
             <p>
-              Room Code:
-              <input value={this.state.room_code} onChange={this.handleCodeChange} type="text" />
-            </p>
-            <p>
               Username:
               <input value={this.state.name} onChange={this.handleNameChange} type="text" />
             </p>
-          <button onClick={this.handleSubmit}>
+            <p>
+              Room Code:
+              <input className={'z-mobile-landing-form-code'} maxLength={6} value={this.state.room_code} onChange={this.handleCodeChange} type="text" />
+            </p>
+          <button onClick={this.handleSubmit}
+              disabled={(this.state.room_code.length != 6 || !this.state.name.length) ? true : false}>
             <p>Join</p>
           </button>
         </div>

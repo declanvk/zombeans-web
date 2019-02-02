@@ -64,7 +64,7 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
       <div className='z-mobile-controller transition-item'
           style={{height: window.innerHeight, width: window.innerWidth}}>
         <div className='z-mobile-controller-player'>
-          <p>{this.props.user_name}</p>
+          <h1>{this.props.user_name}</h1>
         </div>
         <div className='z-mobile-controller-controller'>
           <DirectionalPad on_press={this.onPress}
