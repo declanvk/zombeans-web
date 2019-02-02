@@ -10,6 +10,8 @@ namespace MobileLanding {
   export
   interface IProps {
     submit_form: (room_code: string, name: string) => void;
+    room_code_failure: boolean,
+    room_code_fail_reason: string
   }
 }
 
@@ -44,7 +46,10 @@ class MobileLanding extends React.Component<MobileLanding.IProps, MobileLanding.
   render() {
     return (
       <div className='z-mobile-landing-page transition-item'>
-        <div className={'z-mobile-landing-header-spacer'} />
+        <div className='z-mobile-landing-failure'
+            style={{display: this.props.room_code_failure ? '' : 'None'}}>
+          <p>{this.props.room_code_fail_reason}</p>
+        </div>
         <div className={'z-mobile-landing-form'} >
             <p>
               Room Code:
