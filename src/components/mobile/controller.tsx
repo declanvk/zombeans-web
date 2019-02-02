@@ -26,7 +26,7 @@ class Controller extends React.Component<Controller.IProps, any> {
 
   render() {
     return (
-      <div>
+      <div className='z-mobile-controller transition-item' >
 
       </div>
     );

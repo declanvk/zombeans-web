@@ -3,7 +3,7 @@ import * as io from "socket.io-client";
 import { Controller } from './mobile/controller';
 import { MobileLanding } from './mobile/landing';
 import PageTransition from 'react-router-page-transition';
-import "./../assets/scss/app.scss";
+import "./../assets/scss/mobile_app.scss";
 
 export
 namespace MobileApp {
@@ -44,7 +44,6 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
       room_code: room_code,
       user_name: name
     }
-    console.log(join_request);
     this.socket.emit('player_join_request', join_request);
   }
 

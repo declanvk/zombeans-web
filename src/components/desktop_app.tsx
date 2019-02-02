@@ -4,7 +4,7 @@ import { GameBoard } from './desktop/gameboard';
 import { DesktopLanding } from './desktop/landing';
 import PageTransition from 'react-router-page-transition';
 import {IUser} from '../types';
-import "./../assets/scss/app.scss";
+import "./../assets/scss/desktop_app.scss";
 
 export
 namespace DesktopApp {
