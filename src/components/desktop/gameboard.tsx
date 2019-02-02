@@ -10,6 +10,7 @@ namespace GameBoard {
   export
   interface IProps {
     room_code: string;
+    gameboard_ready?: () => void;
   }
 }
 
@@ -36,18 +37,21 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
     this.canvas = (document.getElementById(CANVAS_ID) as HTMLCanvasElement);
     this.ctx = this.canvas.getContext('2d');
     this.socket.on('game_starting', (data: any) => {
-      this.boardSize[0] = data["position"].x;
-      this.boardSize[1] = data["position"].y
+      console.log(data);
+      this.boardSize[0] = data.width;
+      this.boardSize[1] = data.height
       this.playerRadius = data["playerRadius"];
       console.log("game starting message");
     });
     this.socket.on('game_tick', (data: any) => {
+      console.log("here");
       this.players = data[0]
       this.gameState = data[1];
       this.draw();
     });
     this.socket.on("game_view_response", (data:any) => {
       console.log(data);
+      this.props.gameboard_ready();
     });
     this.socket.emit("request_game_view", {"room_code":this.props.room_code})
     this.mimic_server();

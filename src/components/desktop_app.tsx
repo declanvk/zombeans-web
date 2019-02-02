@@ -36,6 +36,10 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
 
     this.socket = io('/host');
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.start_game = this.start_game.bind(this);
+  }
+  start_game(){
+    this.socket.emit("request_start_game",{});
   }
 
   handleKeyPress(evt: any) {
@@ -43,7 +47,6 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
       this.setState({
         display: 'game',
       });
-      this.socket.emit("request_start_game",{});
     }
   }
 
@@ -70,7 +73,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
     if (this.state.display == 'landing')
       page = (<DesktopLanding room_code={this.state.room_code} users={this.state.users} />);
     else
-      page = (<GameBoard room_code={this.state.room_code} />);
+      page = (<GameBoard room_code={this.state.room_code} gameboard_ready={this.start_game}/>);
 
     return (
       <div>
