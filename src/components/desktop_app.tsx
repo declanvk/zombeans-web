@@ -1,19 +1,19 @@
 import * as React from "react";
 import * as io from "socket.io-client";
-import { GameBoard } from './gameboard';
-import { Landing } from './landing';
+import { GameBoard } from './desktop/gameboard';
+import { Landing } from './desktop/landing';
 import PageTransition from 'react-router-page-transition';
 import "./../assets/scss/app.scss";
 
 export
 namespace App {
   export
-    interface IUser {
+  interface IUser {
     name: string;
     character: string;
   }
   export
-    interface IState {
+  interface IState {
     display: 'landing' | 'game';
     room_code: string;
     users: IUser[];
