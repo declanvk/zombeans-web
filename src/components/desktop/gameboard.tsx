@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as io from "socket.io-client";
+import { deflateRaw } from "zlib";
 
 const CANVAS_ID = 'z-desktop-gameboard-canvas-id';
 
@@ -19,47 +20,66 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
   players:any;
-  boardSize:[number, number];
+  boardSize = [0,0];
   playerRadius:number
+  gameState = "";
 
 
   constructor(props: any) {
     super(props);
+    this.socket = io('/player');
    // this.socket = io('some endpoint');
   }
 
   componentDidMount() {
     // Send room code over socket
-
     this.canvas = (document.getElementById(CANVAS_ID) as HTMLCanvasElement);
     this.ctx = this.canvas.getContext('2d');
-    this.ctx.fillStyle = 'red';
-    this.ctx.fillRect(10, 10, 20, 20);
+    this.socket.on('player_join_response', (data: any) => {
+      this.boardSize[0] = data["position"].x;
+      this.boardSize[1] = data["position"].y
+      this.playerRadius = data["playerRadius"];
+    });
+    this.socket.on('game_tick', (data: any) => {
+      this.players = data[0]
+      this.gameState = data[1];
+      this.draw();
+    });
+    this.mimic_server();
+    this.draw();
+
+  }
+  mimic_server(){
+      this.boardSize[0] = 1000;
+      this.boardSize[1] = 1000;
+      this.playerRadius = 25;
+      this.players = {"1":{"position":{"x":50,"y":50}, "isZombie":false}}
   }
   draw(){
     this.ctx.moveTo(0,0);
     this.ctx.clearRect(0,0,this.boardSize[0], this.boardSize[1]);
+    this.makeBoard();
     for(var i in this.players){
         this.drawPlayer(this.players[i]["position"], this.playerRadius, i);
     }
 
   }
   makeBoard(){
-    this.ctx.moveTo(0,0);
-    this.ctx.lineTo(this.boardSize[0], 0);
+    this.ctx.moveTo(10,10);
+    this.ctx.lineTo(this.boardSize[0], 10);
     this.ctx.lineTo(this.boardSize[0], this.boardSize[1]);
-    this.ctx.lineTo(0, this.boardSize[1]);
-    this.ctx.lineTo(0, 0);
+    this.ctx.lineTo(10, this.boardSize[1]);
+    this.ctx.lineTo(10, 10);
     this.ctx.stroke();
   }
-  drawPlayer(pos:[number, number], radius:number, id:string){
+  drawPlayer(pos:any, radius:number, id:string){
     this.ctx.beginPath()
     if(this.players[id]["isZombie"] === true){
       this.ctx.fillStyle = 'green';
     }else{
       this.ctx.fillStyle = 'brown';
     }
-    this.ctx.arc(pos[0], pos[1], radius, 0, 2*Math.PI);
+    this.ctx.arc(pos.x, pos.y, radius, 0, 2*Math.PI);
     this.ctx.fill();
   }
   render() {
