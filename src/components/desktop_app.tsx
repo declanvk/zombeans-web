@@ -44,7 +44,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
   }
 
   private _handleKeyPress(evt: any) {
-    if(evt.key == 't') {
+    if(evt.keyCode == 13) {
       this.setState({
         display: 'game',
       });
