@@ -87,7 +87,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
     var promises = Array();
     for (var i = 0; i < characters.length; i++) {
       if (zombie) {
-        promises.push(this._promiseImage(characters[i].normal_img));
+        promises.push(this._promiseImage(characters[i].zombie_img));
       } else {
         promises.push(this._promiseImage(characters[i].normal_img));
       }
