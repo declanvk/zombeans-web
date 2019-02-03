@@ -35,7 +35,7 @@ namespace GameBoard {
   export
   interface PlayerRenderData {
     position: { x: number, y: number };
-    is_zombie: boolean;
+    isZombie: boolean;
   }
 
   export
@@ -124,7 +124,6 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
 
   private _onGameTick(data: any): void {
     let player_render_data: Map<string, GameBoard.PlayerRenderData> = data['player_pos_data'];
-    console.log(data);
     this._player_render_data = player_render_data;
   }
 
@@ -263,14 +262,14 @@ function draw(ctx: CanvasRenderingContext2D, player_ids: Array<string>, characte
 
     if (player) {
       let character_img;
-      if (player.is_zombie) {
+      if (player.isZombie) {
         character_img = loaded_characters.zombie[character];
       } else {
         character_img = loaded_characters.normal[character];
       }
       
       drawPlayer(ctx, player.position.x, player.position.y, character,
-        player.is_zombie, board.player_radius, character_img);
+        player.isZombie, board.player_radius, character_img);
     }
   }
 
