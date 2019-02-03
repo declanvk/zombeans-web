@@ -35,7 +35,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
     };
 
     this.socket = io('/host');
-    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this._handleKeyPress = this._handleKeyPress.bind(this);
     this.start_game = this.start_game.bind(this);
   }
   start_game(){
@@ -43,7 +43,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
     //setInterval(function(){ this.socket.emit("request_update_game",{}); }, 50);
   }
 
-  handleKeyPress(evt: any) {
+  private _handleKeyPress(evt: any) {
     if(evt.key == 't') {
       this.setState({
         display: 'game',
@@ -52,7 +52,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyPress);
+    document.addEventListener("keydown", this._handleKeyPress);
     this.socket.on('room_code', (data: any) => {
        this.setState({
           room_code: data.room_code
