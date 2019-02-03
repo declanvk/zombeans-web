@@ -4,6 +4,22 @@ $darkblue: #1e3c6a;
 $lightblue: #5ba2cd;
 $green: #b2d235;
 
+@font-face {
+   font-family: 'Love Ya Like A Sister';
+   font-style: normal;
+   font-weight: 400;
+   src: url('../fonts/sister.woff2');
+   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+ }
+
+ @font-face {
+   font-family: 'Creepster';
+   font-style: normal;
+   font-weight: 400;
+   src: url('../fonts/creepster.woff2');
+   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+ }
+
 html {
   height: 100%;
 }
