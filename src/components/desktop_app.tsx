@@ -48,6 +48,8 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
       this.setState({
         display: 'game',
       });
+
+      this.start_game()
     }
   }
 
