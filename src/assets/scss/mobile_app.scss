@@ -1,3 +1,23 @@
+// color scheme
+$purple: #38115a;
+$darkblue: #1e3c6a;
+$lightblue: #5ba2cd;
+$green: #b2d235;
+
+button.z-mobile-god-button.button-1 {
+    background-color: $green;
+}
+
+button.z-mobile-god-button.button-2 {
+    background-color: $lightblue;
+}
+button.z-mobile-god-button.button-3 {
+    background-color: $darkblue;
+}
+button.z-mobile-god-button.button-4 {
+    background-color: $purple;
+}
+
 .z-mobile-landing-header-spacer {
    height: 50px;
 }
@@ -250,3 +270,43 @@ img.players-bean {
     position: fixed;
     z-index: -9999;
   }
+
+  .god {
+    margin-left: 11%!important;
+}
+
+.z-mobile-god-buttons {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: auto;
+    width: 200px;
+    justify-content: space-evenly;
+    margin-top: auto;
+}
+
+.z-mobile-god-buttons .z-mobile-god-button {
+    border: none;
+    border-radius: 10px;  
+    font-family: 'Love Ya Like A Sister', cursive;
+    text-transform: uppercase;
+    font-size: 1em;
+    padding: 10px;
+    color: white;
+    letter-spacing: 2px;
+}
+
+
+
+.z-mobile-god-player {
+    width: 50%;
+
+    img.players-bean {
+        width: 115px;
+    }
+
+    .players-name {
+        font-size:1em;
+        margin-top: 20px;
+    }
+}

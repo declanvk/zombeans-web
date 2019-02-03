@@ -33,7 +33,7 @@ class GodController extends React.Component<GodController.IProps, any> {
         <div className='z-mobile-god-player'>
           <p className='players-name'>{this.props.user.name}</p>
           <img className='players-bean' src={god_img}/>
-          <div id='oval'></div>
+          <div id='oval' className='god'></div>
         </div>
         <GodButtons on_press={this.props.on_press} enabled={[true, true, true, true]}/>
       </div>
@@ -53,29 +53,29 @@ namespace GodButtons {
 const GodButtons = (props: GodButtons.IProps) => {
   return (
     <div className='z-mobile-god-buttons'>
-      <button className='z-mobile-god-button'
+      <button className='z-mobile-god-button button-1'
           onClick={(evt)=>props.on_press(evt, 'freeze')}
           disabled={!props.enabled[0]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
-        <p>Freeze</p>
+        Freeze
       </button>
-      <button className='z-mobile-god-button'
+      <button className='z-mobile-god-button button-2'
           onClick={(evt)=>props.on_press(evt, 'speed up')}
           disabled={!props.enabled[1]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
-        <p>Speed Up</p>
+        Speed Up
       </button>
-      <button className='z-mobile-god-button'
+      <button className='z-mobile-god-button button-3'
           onClick={(evt)=>props.on_press(evt, 'immune')}
           disabled={!props.enabled[2]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
-        <p>Immune</p>          
+        Immunity          
       </button>
-      <button className='z-mobile-good-button'
+      <button className='z-mobile-god-button button-4'
           onClick={(evt)=>props.on_press(evt, 'cure')}
           disabled={!props.enabled[3]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
-        <p>Cure</p>                    
+        Cure                   
       </button>
     </div>
   )
