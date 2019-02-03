@@ -153,7 +153,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
   animate(loaded_characters: {
     normal: HTMLImageElement[],
     zombie: HTMLImageElement[],
-  }) {
+  }, width: number, height: number) {
     if (this && this._canvas && this.state.board_description) {
       if (this._canvas.current) {
         const canvas = this._canvas.current;
@@ -171,11 +171,11 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
     }
 
     if (this) {
-      requestAnimationFrame(() => this.animate(loaded_characters));
+      requestAnimationFrame(() => this.animate(loaded_characters, width, height));
     }
   }
 
-  render() {
+  private _getHeightWidth() {
     let height: number;
     let width: number;
     if (this.state.board_description) {
@@ -186,9 +186,15 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
       width = 1200
     }
 
+    return [width, height];
+  }
+
+  render() {
+    let [width, height] = this._getHeightWidth();
+
     return (
       <div className={'z-desktop-gameboard transition-item'}>
-        <canvas className={'z-desktop-gameboard-canvas'} ref={this._canvas} id={CANVAS_ID} height={width} width={height}/>
+        <canvas className={'z-desktop-gameboard-canvas'} ref={this._canvas} id={CANVAS_ID} height={height} width={width}/>
       </div>
     );
   }
@@ -240,17 +246,10 @@ function drawPlayer(ctx: CanvasRenderingContext2D, x: number, y: number, charact
   ctx.strokeStyle = 'black';
 
   ctx.beginPath()
-  ctx.arc(x, y, radius, 0, 2*Math.PI);
+  ctx.ellipse(x, y, radius, radius, 0, 0, 2*Math.PI);
   ctx.stroke();
 
-  const innerHeight = window.innerHeight;
-  const innerWidth = window.innerWidth;
-  const scale = radius * 3;
-  const ratio = innerWidth / innerHeight;
-  const img_width = scale;
-  const img_height = ratio * img_width;
-
-  ctx.drawImage(img, x, y, img_width, 1.1 * img_height);
+  ctx.drawImage(img, x - (radius), y - (radius), 2 * radius, 2 * radius);
   
   ctx.restore();
 }
