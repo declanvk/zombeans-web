@@ -3,11 +3,11 @@ import * as io from "socket.io-client";
 import { characters } from '../../data'; 
 
 const CANVAS_ID = 'z-desktop-gameboard-canvas-id';
-import gameover_img = require("../../../src/assets/img/game-over.png");
-import wizard = require("../../../src/assets/img/wizard-v2.png");
-import bean1 = require("../../../src/assets/img/pinto.png");
-import bean2 = require("../../../src/assets/img/chickpea.png");
-import bean3 = require("../../../src/assets/img/edamame.png");
+const gameover_img = require("../../../src/assets/img/game-over.png");
+const wizard = require("../../../src/assets/img/wizard-v2.png");
+const bean1 = require("../../../src/assets/img/pinto.png");
+const bean2 = require("../../../src/assets/img/chickpea.png");
+const bean3 = require("../../../src/assets/img/edamame.png");
 
 export
 namespace GameBoard {
