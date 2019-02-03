@@ -2,7 +2,7 @@ import * as React from "react";
 import {IUser} from '../../types';
 import { characters } from "../../data";
 
-const logo = require('../../../src/assets/img/logo-4.png');
+const logo = require('../../../src/assets/img/logo.png');
 
 export
 namespace Landing {
