@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as io from "socket.io-client";
 import { Controller } from './mobile/controller';
+import { GodController } from './mobile/god_controller';
 import { MobileLanding } from './mobile/landing';
 import PageTransition from 'react-router-page-transition';
 import { IUser } from "../types";
@@ -10,7 +11,7 @@ export
 namespace MobileApp {
   export
   interface IState {
-    display: 'landing' | 'controller';
+    display: 'landing' | 'controller' | 'god_controller';
     room_code_failure: boolean;
     room_code_fail_reason: string;
     screen_orientation: 'vertical' | 'horizontal';
@@ -52,6 +53,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     this._onPress = this._onPress.bind(this);
     this._onRelease = this._onRelease.bind(this);
     this._handleResize = this._handleResize.bind(this);
+    this._handleKeyPress = this._handleKeyPress.bind(this);
   }
 
   private _joinGame(room_code: string, name: string) {
@@ -65,6 +67,14 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     this.socket.emit('player_join_request', join_request);
   }
 
+  private _handleKeyPress(evt: any) {
+    if(evt.key == 'g') {
+      this.setState({
+        display: 'god_controller',
+      });
+    }
+  }
+
   private _handleResize() {
     this.setState({
       screen_orientation: window.orientation == 0 ? 'vertical' : 'horizontal',
@@ -74,6 +84,18 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
   }
 
   private _onPress(evt: any, dir: string) {
+    console.log('Press: ' + dir);
+    this.socket.emit('make_move', {
+        "pkt_name": "make_move",
+        "origin":"normal", 
+        "action":{
+          "key":dir,
+          "state":"pressed"
+        }
+    });
+  }
+
+  private _onGodPress(evt: any, dir: string) {
     console.log('Press: ' + dir);
     this.socket.emit('make_move', {
         "pkt_name": "make_move",
@@ -100,6 +122,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
   componentDidMount() {
     window.addEventListener('resize', this._handleResize);
     window.addEventListener('orientationchange', this._handleResize);
+    document.addEventListener("keydown", this._handleKeyPress);
     this.socket.on('player_join_response', (data: any) => {
       if (data.status === 'failure') {
         this.setState({
@@ -127,6 +150,9 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
           room_code_failure={this.state.room_code_failure}
           room_code_fail_reason={this.state.room_code_fail_reason}
           screen_orientation={this.state.screen_orientation}/>);
+    else if (this.state.display == 'god_controller')
+      page = (<GodController room_code={this.room_code} user={this.user}
+          on_press = {this._onPress} screen_orientation={this.state.screen_orientation}/>);
     else
       page = (<Controller room_code={this.room_code} user={this.user}
           on_press = {this._onPress} on_release = {this._onRelease}
