@@ -101,6 +101,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
   }
 
   private _onGodPress(evt: any, type: number) {
+    console.log('God Press: ' + type);
      this.socket.emit('make_move', {
       "pkt_name": "make_move",
       "origin":"god",
@@ -125,7 +126,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
   componentDidMount() {
     window.addEventListener('resize', this._handleResize);
     window.addEventListener('orientationchange', this._handleResize);
-    document.addEventListener("keydown", this._handleKeyPress);
+    //document.addEventListener("keydown", this._handleKeyPress);
     this.socket.on('player_join_response', (data: any) => {
       if (data.status === 'failure') {
         this.setState({
@@ -146,10 +147,11 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
       }
     });
     this.socket.on('god_spells', (data: any) => {
-      let enable_spells = [false];
+      let enable_spells = [false, false, false, false];
       data.god_spells.possible.forEach(s => {
         enable_spells[s-1] = true;
       });
+
       this.setState({
         possible_spells: enable_spells
       })
