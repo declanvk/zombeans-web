@@ -33,6 +33,7 @@ body {
   background-attachment: fixed;
   background-color: $darkblue; //fallback
   background-image: url(../img/splatter.png), linear-gradient($darkblue, $lightblue);
+  background-size: 800px;
   font-family: 'Love Ya Like A Sister', cursive;
 }
 
