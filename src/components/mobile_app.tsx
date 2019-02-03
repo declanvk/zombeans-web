@@ -38,8 +38,8 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
       room_code_failure: false,
       room_code_fail_reason: '',
       screen_orientation:  screen.orientation.angle == 0 ? 'vertical' : 'horizontal',
-      height: window.innerHeight,
-      width: window.innerWidth
+      height: screen.height,
+      width: screen.width
     };
     this.user = {
       name: '',
@@ -68,8 +68,8 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
   private _handleResize() {
     this.setState({
       screen_orientation: screen.orientation.angle == 0 ? 'vertical' : 'horizontal',
-      height: window.innerHeight,
-      width: window.innerWidth
+      height: screen.height,
+      width: screen.width
     });
   }
 
