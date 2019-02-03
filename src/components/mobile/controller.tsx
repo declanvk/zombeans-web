@@ -8,49 +8,19 @@ const rotate_phone = require("../../../src/assets/img/rotate-phone.png");
 export
 namespace Controller {
   export
-  interface IState {
-    screen_orientation: 'vertical' | 'horizontal';
-  }
-  export
   interface IProps {
     user: IUser;
     room_code: string;
     on_release: (evt: any, dir: string) => void;
     on_press: (evt: any, dir: string) => void;
+    screen_orientation: 'vertical' | 'horizontal';
   }
 }
 
 export
-class Controller extends React.Component<Controller.IProps, Controller.IState> {
-
-  socket: SocketIO.Socket;
-  ctx: CanvasRenderingContext2D;
-
-  constructor(props: any) {
-    super(props);
-
-    this.state = {
-      screen_orientation: screen.orientation.angle == 0 ? 'vertical' : 'horizontal'
-    }
-    this.handleResize = this.handleResize.bind(this);
-  }
-
-  handleResize() {
-    this.setState({
-      screen_orientation: screen.orientation.angle == 0 ? 'vertical' : 'horizontal'
-    });
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
-
+class Controller extends React.Component<Controller.IProps, any> {
   render() {
-    if (this.state.screen_orientation == 'vertical') {
+    if (this.props.screen_orientation == 'vertical') {
       return (
         <div className="z-mobile-controller-page transition-item rotate">
           <img src={rotate_phone}/>
@@ -60,8 +30,7 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
     }
 
     return (
-      <div className='z-mobile-controller-page z-mobile-controller transition-item'
-          style={{height: window.innerHeight, width: window.innerWidth}}>
+      <div className='z-mobile-controller-page z-mobile-controller transition-item'>
         <div className='z-mobile-controller-player'>
           <p className="white">{this.props.user.name}</p>
           <img src={characters[this.props.user.character].normal_img}/>

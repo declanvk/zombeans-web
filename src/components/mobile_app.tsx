@@ -13,6 +13,9 @@ namespace MobileApp {
     display: 'landing' | 'controller';
     room_code_failure: boolean;
     room_code_fail_reason: string;
+    screen_orientation: 'vertical' | 'horizontal';
+    height: number;
+    width: number;
   }
 }
 
@@ -33,7 +36,10 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     this.state = {
       display: 'landing',
       room_code_failure: false,
-      room_code_fail_reason: ''
+      room_code_fail_reason: '',
+      screen_orientation:  screen.orientation.angle == 0 ? 'vertical' : 'horizontal',
+      height: window.innerHeight,
+      width: window.innerWidth
     };
     this.user = {
       name: '',
@@ -45,6 +51,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     this.joinGame = this.joinGame.bind(this);
     this.onPress = this.onPress.bind(this);
     this.onRelease = this.onRelease.bind(this);
+    this.handleResize = this.handleResize.bind(this);
   }
 
   joinGame(room_code: string, name: string) {
@@ -59,6 +66,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
   }
 
   componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
     this.socket.on('player_join_response', (data: any) => {
       if (data.status === 'failure') {
         this.setState({
@@ -73,6 +81,19 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
       }
     });
   }
+
+  handleResize() {
+    this.setState({
+      screen_orientation: screen.orientation.angle == 0 ? 'vertical' : 'horizontal',
+      height: window.innerHeight,
+      width: window.innerWidth
+    });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
   onPress(evt: any, dir: string) {
     console.log('Press: ' + dir);
     this.socket.emit('make_move', {
@@ -103,12 +124,15 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     if (this.state.display == 'landing')
       page = (<MobileLanding submit_form={this.joinGame}
           room_code_failure={this.state.room_code_failure}
-          room_code_fail_reason={this.state.room_code_fail_reason}/>);
+          room_code_fail_reason={this.state.room_code_fail_reason}
+          screen_orientation={this.state.screen_orientation}/>);
     else
-      page = (<Controller room_code={this.room_code} user={this.user} on_press = {this.onPress} on_release = {this.onRelease} />);
+      page = (<Controller room_code={this.room_code} user={this.user}
+          on_press = {this.onPress} on_release = {this.onRelease}
+          screen_orientation={this.state.screen_orientation}/>);
 
     return (
-      <div>
+      <div style={{height: this.state.height, width: this.state.width}}>
         <PageTransition compareChildren={MobileApp.compareChildren}>
           {page}
         </PageTransition>
