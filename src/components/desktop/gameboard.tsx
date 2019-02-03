@@ -3,6 +3,12 @@ import * as io from "socket.io-client";
 import { characters } from '../../data'; 
 
 const CANVAS_ID = 'z-desktop-gameboard-canvas-id';
+import gameover_img = require("../../../src/assets/img/game-over.png");
+import wizard = require("../../../src/assets/img/wizard-v2.png");
+import bean1 = require("../../../src/assets/img/pinto.png");
+import bean2 = require("../../../src/assets/img/chickpea.png");
+import bean3 = require("../../../src/assets/img/edamame.png");
+
 export
 namespace GameBoard {
 
@@ -220,7 +226,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
 
       inner_html = (
         <div className={'z-desktop-gameover-text'}>
-          <p>The game is over!</p>
+          <img src={gameover_img} />
           <p>{win_text}</p>
         </div>
       );
@@ -229,8 +235,13 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
     return (
       <div className={'z-desktop-gameboard transition-item'}>
         {inner_html}
-      </div>
-    );
+        <div className={'characters'}>
+        <img className={'char-1'} src={wizard}/>
+        <img className={'char-2'} src={bean1}/>
+        <img className={'char-2'} src={bean2}/>
+        <img className={'char-2'} src={bean3}/>
+        </div>
+      </div>);
   }
 }
 
