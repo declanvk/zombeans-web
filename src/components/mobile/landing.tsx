@@ -10,8 +10,9 @@ namespace MobileLanding {
   export
   interface IProps {
     submit_form: (room_code: string, name: string) => void;
-    room_code_failure: boolean,
-    room_code_fail_reason: string
+    room_code_failure: boolean;
+    room_code_fail_reason: string;
+    screen_orientation: 'vertical' | 'horizontal';
   }
 }
 
@@ -51,19 +52,21 @@ class MobileLanding extends React.Component<MobileLanding.IProps, MobileLanding.
             style={{display: this.props.room_code_failure ? '' : 'None'}}>
           <p>{this.props.room_code_fail_reason}</p>
         </div>
-        <div className={'z-mobile-landing-form white'} >
-            <p>what's your name?</p>
-            <input value={this.state.name} onChange={this.handleNameChange} type="text" maxLength={10} />
+        <div className={'z-mobile-landing-form-container'}>
+          <div className={'z-mobile-landing-form white'} >
+              <p>what's your name?</p>
+              <input value={this.state.name} onChange={this.handleNameChange} type="text" maxLength={10} />
 
-            <p className="no-margin">room code:</p>
-            <input className={'z-mobile-landing-form-code'} maxLength={6} value={this.state.room_code} onChange={this.handleCodeChange} type="text" />
-          
-          
-          <button onClick={this.handleSubmit}
-          className="join-button"
-              disabled={(this.state.room_code.length != 6 || !this.state.name.length) ? true : false}>
-            <p>Join</p>
-          </button>
+              <p className="no-margin">room code:</p>
+              <input className={'z-mobile-landing-form-code'} maxLength={6} value={this.state.room_code} onChange={this.handleCodeChange} type="text" />
+            
+            
+            <button onClick={this.handleSubmit}
+            className="join-button"
+                disabled={(this.state.room_code.length != 6 || !this.state.name.length) ? true : false}>
+              <p>Join</p>
+            </button>
+          </div>
         </div>
       </div>
     );
