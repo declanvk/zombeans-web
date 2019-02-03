@@ -187,10 +187,18 @@
 }
 
 .gameplay-box {
-  position: fixed;
-  height: 90%;
-  width: 90%;
-  background: url(../../assets/img/ground.png);
-  background-repeat: repeat;
-  background-size: 300px;
+  position: absolute;
+    height: 90%;
+    width: 90%;
+    background: /* top, transparent black, faked with gradient */ 
+    linear-gradient(
+      rgba(75, 75, 75, 0.7), 
+      rgba(0, 0, 0, 0.7)
+    ),
+    /* bottom, image */
+    url(../img/ground.jpg);
+    background-repeat: repeat;
+    background-size: 300px;
+    top: 5%;
+    left: 5%;
 }
