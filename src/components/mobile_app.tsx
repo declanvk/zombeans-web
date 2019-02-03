@@ -7,6 +7,8 @@ import PageTransition from 'react-router-page-transition';
 import { IUser } from "../types";
 import "./../assets/scss/mobile_app.scss";
 
+const GOD_CHAR = 5;
+
 export
 namespace MobileApp {
   export
@@ -17,6 +19,7 @@ namespace MobileApp {
     screen_orientation: 'vertical' | 'horizontal';
     height: number;
     width: number;
+    possible_spells: boolean[];
   }
 }
 
@@ -40,7 +43,8 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
       room_code_fail_reason: '',
       screen_orientation:  window.orientation == 0 ? 'vertical' : 'horizontal',
       height: screen.availHeight,
-      width: screen.availWidth
+      width: screen.availWidth,
+      possible_spells: [false, false, false, false]
     };
     this.user = {
       name: '',
@@ -54,6 +58,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     this._onRelease = this._onRelease.bind(this);
     this._handleResize = this._handleResize.bind(this);
     this._handleKeyPress = this._handleKeyPress.bind(this);
+    this._onGodPress = this._onGodPress.bind(this);
   }
 
   private _joinGame(room_code: string, name: string) {
@@ -87,7 +92,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     console.log('Press: ' + dir);
     this.socket.emit('make_move', {
         "pkt_name": "make_move",
-        "origin":"normal", 
+        "origin":"normal",
         "action":{
           "key":dir,
           "state":"pressed"
@@ -95,15 +100,13 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     });
   }
 
-  private _onGodPress(evt: any, dir: string) {
-    console.log('Press: ' + dir);
-    this.socket.emit('make_move', {
-        "pkt_name": "make_move",
-        "origin":"normal", 
-        "action":{
-          "key":dir,
-          "state":"pressed"
-        }
+  private _onGodPress(evt: any, type: number) {
+     this.socket.emit('make_move', {
+      "pkt_name": "make_move",
+      "origin":"normal",
+      "action":{
+        "code":type,
+      }
     });
   }
 
@@ -131,10 +134,25 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
         });
       } else {
         this.user.character = data.aux_data.character;
+        let display;
+        if (this.user.character == GOD_CHAR)
+          display = 'god_controller';
+        else
+          display = 'controller';
+
         this.setState({
-          display: 'controller'
+          display: display
         });
       }
+    });
+    this.socket.on('god_spells', (data: any) => {
+      let enable_spells = [false];
+      data.god_spells.possible.array.forEach(s => {
+        enable_spells[s-1] = true;
+      });
+      this.setState({
+        possible_spells: enable_spells
+      })
     });
   }
 
@@ -151,8 +169,8 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
           room_code_fail_reason={this.state.room_code_fail_reason}
           screen_orientation={this.state.screen_orientation}/>);
     else if (this.state.display == 'god_controller')
-      page = (<GodController room_code={this.room_code} user={this.user}
-          on_press = {this._onPress} screen_orientation={this.state.screen_orientation}/>);
+      page = (<GodController room_code={this.room_code} user={this.user} enabled_spells={this.state.possible_spells}
+          on_press = {this._onGodPress} screen_orientation={this.state.screen_orientation}/>);
     else
       page = (<Controller room_code={this.room_code} user={this.user}
           on_press = {this._onPress} on_release = {this._onRelease}

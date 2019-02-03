@@ -5,14 +5,20 @@ import {IUser} from '../../types';
 const rotate_phone = require("../../../src/assets/img/rotate-phone.png");
 const god_img = require("../../../src/assets/img/wizard.png");
 
+const FREEZE = 1
+const SPEED_UP = 2
+const IMMUNE = 3
+const CURE = 4
+
 export
 namespace GodController {
   export
   interface IProps {
     user: IUser;
     room_code: string;
-    on_press: (evt: any, dir: string) => void;
+    on_press: (evt: any, type: number) => void;
     screen_orientation: 'vertical' | 'horizontal';
+    enabled_spells: boolean[];
   }
 }
 
@@ -35,7 +41,7 @@ class GodController extends React.Component<GodController.IProps, any> {
           <img className='players-bean' src={god_img}/>
           <div id='oval'></div>
         </div>
-        <GodButtons on_press={this.props.on_press} enabled={[true, true, true, true]}/>
+        <GodButtons on_press={this.props.on_press} enabled={this.props.enabled_spells}/>
       </div>
     );
   }
@@ -45,7 +51,7 @@ export
 namespace GodButtons {
   export
   interface IProps {
-    on_press: (evt: any, button: string) => void;
+    on_press: (evt: any, type: number) => void;
     enabled: boolean[];
   }
 }
@@ -54,25 +60,25 @@ const GodButtons = (props: GodButtons.IProps) => {
   return (
     <div className='z-mobile-god-buttons'>
       <button className='z-mobile-god-button'
-          onClick={(evt)=>props.on_press(evt, 'freeze')}
+          onClick={(evt)=>props.on_press(evt, FREEZE)}
           disabled={!props.enabled[0]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
         <p>Freeze</p>
       </button>
       <button className='z-mobile-god-button'
-          onClick={(evt)=>props.on_press(evt, 'speed up')}
+          onClick={(evt)=>props.on_press(evt, SPEED_UP)}
           disabled={!props.enabled[1]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
         <p>Speed Up</p>
       </button>
       <button className='z-mobile-god-button'
-          onClick={(evt)=>props.on_press(evt, 'immune')}
+          onClick={(evt)=>props.on_press(evt, IMMUNE)}
           disabled={!props.enabled[2]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
         <p>Immune</p>          
       </button>
       <button className='z-mobile-good-button'
-          onClick={(evt)=>props.on_press(evt, 'cure')}
+          onClick={(evt)=>props.on_press(evt, CURE)}
           disabled={!props.enabled[3]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
         <p>Cure</p>                    
