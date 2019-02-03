@@ -166,6 +166,8 @@ input.z-mobile-landing-form-code {
     height: 82px;
     width: 83px;
     background-repeat: no-repeat;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
 }
 
 .z-mobile-dpad-spacer {
