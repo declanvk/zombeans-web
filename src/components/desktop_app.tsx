@@ -13,6 +13,8 @@ namespace DesktopApp {
     display: 'landing' | 'game';
     room_code: string;
     users: IUser[];
+    height: number;
+    width: number;
   }
 }
 
@@ -31,11 +33,13 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
     this.state = {
       display: 'landing',
       room_code: '000000',
-      users: []
+      users: [],
+      height: window.innerHeight,
+      width: window.innerWidth
     };
 
     this.socket = io('/host');
-    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this._handleKeyPress = this._handleKeyPress.bind(this);
     this.start_game = this.start_game.bind(this);
   }
   start_game(){
@@ -43,7 +47,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
     //setInterval(function(){ this.socket.emit("request_update_game",{}); }, 50);
   }
 
-  handleKeyPress(evt: any) {
+  private _handleKeyPress(evt: any) {
     if(evt.key == 't') {
       this.setState({
         display: 'game',
@@ -51,8 +55,15 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
     }
   }
 
+  private _handleResize() {
+    this.setState({
+      height: window.innerHeight,
+      width: window.innerWidth
+    });
+  }
+
   componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyPress);
+    document.addEventListener("keydown", this._handleKeyPress);
     this.socket.on('room_code', (data: any) => {
        this.setState({
           room_code: data.room_code
@@ -77,7 +88,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
       page = (<GameBoard room_code={this.state.room_code} gameboard_ready={this.start_game}/>);
 
     return (
-      <div>
+      <div className={'z-desktop-container'} style={{height: this.state.height, width: this.state.width}}>
         <PageTransition compareChildren={DesktopApp.compareChildren}>
           {page}
         </PageTransition>

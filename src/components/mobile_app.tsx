@@ -48,13 +48,13 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     this.room_code = '';
 
     this.socket = io('/player');
-    this.joinGame = this.joinGame.bind(this);
-    this.onPress = this.onPress.bind(this);
-    this.onRelease = this.onRelease.bind(this);
-    this.handleResize = this.handleResize.bind(this);
+    this._joinGame = this._joinGame.bind(this);
+    this._onPress = this._onPress.bind(this);
+    this._onRelease = this._onRelease.bind(this);
+    this._handleResize = this._handleResize.bind(this);
   }
 
-  joinGame(room_code: string, name: string) {
+  private _joinGame(room_code: string, name: string) {
     this.room_code = room_code;
     this.user.name = name;
     let join_request = {
@@ -65,8 +65,40 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     this.socket.emit('player_join_request', join_request);
   }
 
+  private _handleResize() {
+    this.setState({
+      screen_orientation: screen.orientation.angle == 0 ? 'vertical' : 'horizontal',
+      height: window.innerHeight,
+      width: window.innerWidth
+    });
+  }
+
+  private _onPress(evt: any, dir: string) {
+    console.log('Press: ' + dir);
+    this.socket.emit('make_move', {
+        "pkt_name": "make_move",
+        "origin":"normal", 
+        "action":{
+          "key":dir,
+          "state":"pressed"
+        }
+    });
+  }
+
+  private _onRelease(evt: any, dir: string) {
+    console.log('Release: ' + dir);
+    this.socket.emit('make_move', {
+      "pkt_name": "make_move",
+      "origin":"normal", 
+      "action":{
+        "key":dir,
+        "state":"released"
+      }
+    });    
+  }
+
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('resize', this._handleResize);
     this.socket.on('player_join_response', (data: any) => {
       if (data.status === 'failure') {
         this.setState({
@@ -82,53 +114,21 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     });
   }
 
-  handleResize() {
-    this.setState({
-      screen_orientation: screen.orientation.angle == 0 ? 'vertical' : 'horizontal',
-      height: window.innerHeight,
-      width: window.innerWidth
-    });
-  }
-
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
-
-  onPress(evt: any, dir: string) {
-    console.log('Press: ' + dir);
-    this.socket.emit('make_move', {
-        "pkt_name": "make_move",
-        "origin":"normal", 
-        "action":{
-          "key":dir,
-          "state":"pressed"
-        }
-    });
-  }
-
-  onRelease(evt: any, dir: string) {
-    console.log('Release: ' + dir);
-    this.socket.emit('make_move', {
-      "pkt_name": "make_move",
-      "origin":"normal", 
-      "action":{
-        "key":dir,
-        "state":"released"
-      }
-  });    
+    window.removeEventListener('resize', this._handleResize);
   }
 
   render() {
     let page: any;
 
     if (this.state.display == 'landing')
-      page = (<MobileLanding submit_form={this.joinGame}
+      page = (<MobileLanding submit_form={this._joinGame}
           room_code_failure={this.state.room_code_failure}
           room_code_fail_reason={this.state.room_code_fail_reason}
           screen_orientation={this.state.screen_orientation}/>);
     else
       page = (<Controller room_code={this.room_code} user={this.user}
-          on_press = {this.onPress} on_release = {this.onRelease}
+          on_press = {this._onPress} on_release = {this._onRelease}
           screen_orientation={this.state.screen_orientation}/>);
 
     return (
