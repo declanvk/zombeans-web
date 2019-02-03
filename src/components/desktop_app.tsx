@@ -85,7 +85,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
     if (this.state.display == 'landing')
       page = (<DesktopLanding room_code={this.state.room_code} users={this.state.users} />);
     else
-      page = (<GameBoard room_code={this.state.room_code} gameboard_ready={this.start_game}/>);
+      page = (<GameBoard room_code={this.state.room_code}/>);
 
     return (
       <div className={'z-desktop-container'} style={{height: this.state.height, width: this.state.width}}>
