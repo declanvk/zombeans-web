@@ -29,5 +29,4 @@ const characters = [
   {normal_img: black_img,    zombie_img: black_zombie_img},
   {normal_img: black_img,    zombie_img: black_zombie_img},
   {normal_img: black_img,    zombie_img: black_zombie_img},
-  {normal_img: black_img,    zombie_img: black_zombie_img}
 ]
