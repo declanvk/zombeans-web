@@ -2,6 +2,8 @@ import * as React from "react";
 import {IUser} from '../../types';
 import { characters } from "../../data";
 
+const logo = require('../../../src/assets/img/logo.png');
+
 export
 namespace Landing {
   export
@@ -30,7 +32,7 @@ class DesktopLanding extends React.Component<Landing.IProps, undefined> {
 
     return (
       <div className={'z-desktop-landing-page transition-item'} >
-        <img className="logo" src="../../../src/assets/img/logo.png" />
+        <img className="logo" src={logo} />
         
         <p className="white">Go to www.join-game.com on your phone <br></br> and enter the room code:</p>
         <div className={'z-desktop-landing-code'} >
