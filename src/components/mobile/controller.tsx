@@ -35,11 +35,12 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
   }
 
   componentDidMount() {
-    window.addEventListener('orientationchange', () => {
+    window.addEventListener('resize', () => {
+      console.log('resize');
       this.setState({
         screen_orientation: screen.orientation.angle == 0 ? 'vertical' : 'horizontal'
       });
-    })
+    });
   }
 
   render() {
