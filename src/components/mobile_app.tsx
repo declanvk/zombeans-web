@@ -125,7 +125,8 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
 
   componentDidMount() {
     window.addEventListener('resize', this._handleResize);
-    window.addEventListener('orientationchange', this._handleResize);
+    if (screen.orientation === undefined)
+      window.addEventListener('orientationchange', this._handleResize);
     //document.addEventListener("keydown", this._handleKeyPress);
     this.socket.on('player_join_response', (data: any) => {
       if (data.status === 'failure') {
