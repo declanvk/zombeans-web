@@ -25,6 +25,7 @@ $in-w: $n-char*($char-w + $gap);
          0 100%/ #{$in-w - $gap} 2px no-repeat;
       font: 5ch droid sans mono, consolas, monospace;
       letter-spacing: $gap;
+      font-size: 55px;
       
       &:focus {
          outline: none;
@@ -33,6 +34,7 @@ $in-w: $n-char*($char-w + $gap);
    }
 
    .z-mobile-landing-form input:first-of-type {
+    width: 300px;
     border: 3px solid;
     font-size: 1.25em;
     padding: 2% 0;
@@ -124,9 +126,10 @@ $in-w: $n-char*($char-w + $gap);
 }
 
 .z-mobile-dpad-button {
-   background: green;
-   height: 100px;
-   width: 100px;
+    background-image: url(../img/key.png);
+    height: 82px;
+    width: 83px;
+    background-repeat: no-repeat;
 }
 
 .z-mobile-dpad-spacer {

@@ -67,7 +67,7 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
       <div className='z-mobile-controller transition-item'
           style={{height: window.innerHeight, width: window.innerWidth}}>
         <div className='z-mobile-controller-player'>
-          <h1>{this.props.user.name}</h1>
+          <p className="white">{this.props.user.name}</p>
           <img src={characters[this.props.user.character].normal_img}/>
         </div>
         <div className='z-mobile-controller-controller'>
