@@ -6,54 +6,16 @@
    background: red;
 }
 
-$char-w: 1ch;
-$gap: .5*$char-w;
-$n-char: 6;
-$in-w: $n-char*($char-w + $gap);
+.z-mobile-container {
+   .transition-wrapper {
+      height: 100%;
+   }
+}
 
 .z-mobile-landing-page {
    transition: transform 0.5s, opacity 0.5s;
-
-   input.z-mobile-landing-form-code {
-       
-    border: none;
-      padding: 0;
-      width: $in-w;
-      background: repeating-linear-gradient(90deg, 
-         white 0, white $char-w, 
-         transparent 0, transparent $char-w + $gap) 
-         0 100%/ #{$in-w - $gap} 2px no-repeat;
-      font: 5ch droid sans mono, consolas, monospace;
-      letter-spacing: $gap;
-      font-size: 55px;
-      text-transform: uppercase;
-      
-      &:focus {
-         outline: none;
-         color: white;
-      }
-   }
-
-   .z-mobile-landing-form input:first-of-type {
-    width: 300px;
-    border: 3px solid;
-    font-size: 1.25em;
-    padding: 2% 0;
-    text-align: center;
-    text-transform: uppercase;
-    font-family: 'Love Ya Like A Sister', cursive;
-    letter-spacing: 5px;
-    background-color: #FFFFFF;
-    border-radius: 5px;
-    -webkit-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
-    -moz-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
-    box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
-  
-   }
-
-   .z-mobile-landing-form {
-       padding-top: 25%;
-   }
+   height: 100%;
+   width: 100%;
 
    &.transition-appear {
       opacity: 0;
@@ -77,6 +39,8 @@ $in-w: $n-char*($char-w + $gap);
 
 .z-mobile-controller-page {
    transition: transform 0.5s, opacity 0.5s;
+   height: 100%;
+   width: 100%;
 
    &.transition-appear {
       opacity: 0;
@@ -96,6 +60,61 @@ $in-w: $n-char*($char-w + $gap);
       opacity: 0;
       transform: translate3d(100%, 0, 0);
    }
+
+}
+
+
+.z-mobile-landing-form-container {
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.z-mobile-landing-form {
+   width: 300px;
+   height: 400px;
+}
+
+.z-mobile-landing-form input:first-of-type {
+   width: 96%;
+   border: 3px solid;
+   font-size: 1.25em;
+   padding: 5px 0;
+   text-align: center;
+   text-transform: uppercase;
+   font-family: 'Love Ya Like A Sister', cursive;
+   letter-spacing: 5px;
+   background-color: #FFFFFF;
+   border-radius: 5px;
+   -webkit-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
+   -moz-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
+   box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
+
+}
+
+$char-w: 1ch;
+$gap: .5*$char-w;
+$n-char: 6;
+$in-w: $n-char*($char-w + $gap);
+
+input.z-mobile-landing-form-code {    
+   border: none;
+   width: $in-w;
+   background: repeating-linear-gradient(90deg, 
+      white 0, white $char-w, 
+      transparent 0, transparent $char-w + $gap) 
+      0 100%/ #{$in-w - $gap} 2px no-repeat;
+   font: 5ch droid sans mono, consolas, monospace;
+   letter-spacing: $gap;
+   font-size: 55px;
+   text-transform: uppercase;
+   transform: translateX($gap / 2);
+   &:focus {
+      outline: none;
+      color: white;
+   }
 }
 
 .z-mobile-controller {
@@ -104,8 +123,9 @@ $in-w: $n-char*($char-w + $gap);
 }
 
 .z-mobile-controller-player {
-   height: 100%;
-   width: 35%;
+    height: 100%;
+    width: 50%;
+    padding: 4% 0;
 }
 
 .z-mobile-controller-controller {
@@ -150,18 +170,16 @@ $in-w: $n-char*($char-w + $gap);
 }
 
 .join-button {
+    border: none;
     margin-top: 25%;
     font-family: 'Love Ya Like A Sister', cursive;
-	-moz-box-shadow: 0px 10px 14px -7px #276873;
-	-webkit-box-shadow: 0px 10px 14px -7px #276873;
-	box-shadow: 0px 10px 14px -7px #276873;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
-	background:-moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
-	background:-webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
-	background:-o-linear-gradient(top, #599bb3 5%, #408c99 100%);
-	background:-ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
-	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99',GradientType=0);
+	box-shadow: 8px 10px 23px -12px rgba(0, 0, 0, 0.75);
+	// background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
+	// background:-moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	// background:-webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	// background:-o-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	// background:-ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
+    background: linear-gradient(to bottom, lightblue 5%, #5ba2cd 100%);	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99',GradientType=0);
 	background-color:#599bb3;
 	-moz-border-radius:8px;
 	-webkit-border-radius:8px;
@@ -173,7 +191,9 @@ $in-w: $n-char*($char-w + $gap);
 	font-weight:bold;
     padding: 0px 56px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #3d768a;
+    text-shadow: 0px 1px 0px darkslategrey;
+    text-transform: uppercase;
+    letter-spacing: 5px;
 }
 .join-button:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #599bb3));
@@ -192,10 +212,39 @@ $in-w: $n-char*($char-w + $gap);
 
 .no-margin {
     margin-top: 50px;
-    margin-bottom: -10px;
+    margin-bottom: 5px;
 }
 
 .rotate {
     padding-top: 50%;
     color: white;
 }
+
+img.players-bean {
+    width: 200px;
+}
+
+.players-name {
+    color: black;
+    background: white;
+    font-size: 1.5em;
+    letter-spacing: 4px;
+    border: 3px solid;
+    border-radius: 10px;
+    padding: 0 10px;
+    width: 220px;
+    margin: auto;
+    margin-bottom: 28px;
+}
+
+#oval {
+    width: 26%;
+    height: 81px;
+    background: black;
+    border-radius: 100px / 50px;
+    opacity: 0.15;
+    margin-left: 9%;
+    margin-top: -10%;
+    position: fixed;
+    z-index: -9999;
+  }
