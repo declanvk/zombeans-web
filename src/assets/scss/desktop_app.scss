@@ -180,3 +180,12 @@
   width: 40%;
   margin-left: -8%;
 }
+
+.gameplay-box {
+  position: fixed;
+  height: 90%;
+  width: 90%;
+  background: url(../../assets/img/ground.png);
+  background-repeat: repeat;
+  background-size: 300px;
+}
