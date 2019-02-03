@@ -13,6 +13,8 @@ namespace DesktopApp {
     display: 'landing' | 'game';
     room_code: string;
     users: IUser[];
+    height: number;
+    width: number;
   }
 }
 
@@ -31,7 +33,9 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
     this.state = {
       display: 'landing',
       room_code: '000000',
-      users: []
+      users: [],
+      height: window.innerHeight,
+      width: window.innerWidth
     };
 
     this.socket = io('/host');
@@ -49,6 +53,13 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
         display: 'game',
       });
     }
+  }
+
+  private _handleResize() {
+    this.setState({
+      height: window.innerHeight,
+      width: window.innerWidth
+    });
   }
 
   componentDidMount() {
@@ -77,7 +88,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
       page = (<GameBoard room_code={this.state.room_code} gameboard_ready={this.start_game}/>);
 
     return (
-      <div>
+      <div className={'z-desktop-container'} style={{height: this.state.height, width: this.state.width}}>
         <PageTransition compareChildren={DesktopApp.compareChildren}>
           {page}
         </PageTransition>
