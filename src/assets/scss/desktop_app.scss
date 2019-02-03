@@ -213,15 +213,15 @@ $green: #b2d235;
 }
 
 .z-desktop-gameover-text {
-  img {
-    width: 50%;
-    margin-top: 100px;
-  }
-
   p {
     margin-top: -20px;
     color: $green;
   }
+}
+
+.z-desktop-gameover-logo {
+   width: 50%;
+   margin-top: 100px;
 }
 
 .characters {

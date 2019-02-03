@@ -226,8 +226,14 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
 
       inner_html = (
         <div className={'z-desktop-gameover-text'}>
-          <img src={gameover_img} />
+          <img src={gameover_img} className={'z-desktop-gameover-logo'}/>
           <p>{win_text}</p>
+          <div className={'characters'}>
+            <img className={'char-1'} src={wizard}/>
+            <img className={'char-2'} src={bean1}/>
+            <img className={'char-2'} src={bean2}/>
+            <img className={'char-2'} src={bean3}/>
+          </div>
         </div>
       );
     }
@@ -235,12 +241,6 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
     return (
       <div className={'z-desktop-gameboard transition-item'}>
         {inner_html}
-        <div className={'characters'}>
-        <img className={'char-1'} src={wizard}/>
-        <img className={'char-2'} src={bean1}/>
-        <img className={'char-2'} src={bean2}/>
-        <img className={'char-2'} src={bean3}/>
-        </div>
       </div>);
   }
 }
