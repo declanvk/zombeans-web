@@ -133,7 +133,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
       });
 
       this._allZombieImages.then(loaded_characters => {
-        this.animate(loaded_characters);
+        this.animate(loaded_characters, board_description.width, board_description.height);
       })
     } else {
       console.warn(`Failed to request view access to room: ${this.props.room_code}`);
