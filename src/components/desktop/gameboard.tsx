@@ -44,8 +44,10 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
 
   private _socket: SocketIO.Socket;
   private _canvas?: React.RefObject<HTMLCanvasElement>;
-  private _allZombieImages: Promise<HTMLImageElement[]>;
-  private _allNormalImages: Promise<HTMLImageElement[]>;
+  private _allZombieImages: Promise<{
+    normal: HTMLImageElement[],
+    zombie: HTMLImageElement[],
+  }>;
   private _player_render_data: Map<string, GameBoard.PlayerRenderData>;
 
   constructor(props: any) {
@@ -56,8 +58,14 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
     this._onGameTick = this._onGameTick.bind(this);
     this._onGameViewResponse = this._onGameViewResponse.bind(this);
 
-    this._allNormalImages = this._allCharacterPromises(false);
-    this._allZombieImages = this._allCharacterPromises(true);
+    this._allZombieImages = Promise.all([
+      this._allCharacterPromises(false),
+      this._allCharacterPromises(true)]).then(values => {
+        return {
+          normal: values[0],
+          zombie: values[1]
+        }
+      })
 
     this._player_render_data = new Map();
 
@@ -124,7 +132,9 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
         player_descriptions
       });
 
-      this.animate();
+      this._allZombieImages.then(loaded_characters => {
+        this.animate(loaded_characters);
+      })
     } else {
       console.warn(`Failed to request view access to room: ${this.props.room_code}`);
     }
@@ -140,7 +150,10 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
     })
   }
 
-  animate() {
+  animate(loaded_characters: {
+    normal: HTMLImageElement[],
+    zombie: HTMLImageElement[],
+  }) {
     if (this && this._canvas && this.state.board_description) {
       if (this._canvas.current) {
         const canvas = this._canvas.current;
@@ -153,12 +166,12 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
           characters[key] = this.state.player_descriptions[key].character;
         });
 
-        draw(ctx, player_ids, characters, this.state.board_description, this._player_render_data);
+        draw(ctx, player_ids, characters, this.state.board_description, this._player_render_data, loaded_characters);
       }
     }
 
     if (this) {
-      requestAnimationFrame(this.animate);
+      requestAnimationFrame(() => this.animate(loaded_characters));
     }
   }
 
@@ -169,7 +182,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
       height = this.state.board_description.height;
       width = this.state.board_description.width;
     } else {
-      height = 800;
+      height = 1200;
       width = 1200
     }
 
@@ -182,7 +195,11 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
 }
 
 function draw(ctx: CanvasRenderingContext2D, player_ids: Array<string>, characters: Map<string, number>, 
-  board: GameBoard.BoardDescription, players: Map<string, GameBoard.PlayerRenderData>)
+  board: GameBoard.BoardDescription, players: Map<string, GameBoard.PlayerRenderData>,
+  loaded_characters: {
+    normal: HTMLImageElement[],
+    zombie: HTMLImageElement[],
+  })
 {
   ctx.save();
 
@@ -194,14 +211,23 @@ function draw(ctx: CanvasRenderingContext2D, player_ids: Array<string>, characte
     let character: number = characters[p_id];
 
     if (player) {
-      drawPlayer(ctx, player.position.x, player.position.y, character, player.is_zombie, board.player_radius);
+      let character_img;
+      if (player.is_zombie) {
+        character_img = loaded_characters.zombie[character];
+      } else {
+        character_img = loaded_characters.normal[character];
+      }
+      
+      drawPlayer(ctx, player.position.x, player.position.y, character,
+        player.is_zombie, board.player_radius, character_img);
     }
   }
 
   ctx.restore();
 }
 
-function drawPlayer(ctx: CanvasRenderingContext2D, x: number, y: number, character: number, is_zombie: boolean, radius: number) {
+function drawPlayer(ctx: CanvasRenderingContext2D, x: number, y: number, character: number,
+  is_zombie: boolean, radius: number, img: HTMLImageElement) {
   ctx.save();
 
   if (is_zombie) {
@@ -215,18 +241,16 @@ function drawPlayer(ctx: CanvasRenderingContext2D, x: number, y: number, charact
 
   ctx.beginPath()
   ctx.arc(x, y, radius, 0, 2*Math.PI);
-  ctx.stroke()
+  ctx.stroke();
 
-  const img = new Image();
-  img.onload = () => {
-    ctx.drawImage(img, x, y, radius * 2, radius * 2);
-  };
+  const innerHeight = window.innerHeight;
+  const innerWidth = window.innerWidth;
+  const scale = radius * 3;
+  const ratio = innerWidth / innerHeight;
+  const img_width = scale;
+  const img_height = ratio * img_width;
 
-  if (is_zombie) {
-    img.src = characters[character].zombie_img;
-  } else {
-    img.src = characters[character].normal_img;
-  }
+  ctx.drawImage(img, x, y, img_width, 1.1 * img_height);
   
   ctx.restore();
 }

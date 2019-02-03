@@ -99,6 +99,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
 
   componentDidMount() {
     window.addEventListener('resize', this._handleResize);
+    window.addEventListener('orientationchange', this._handleResize);
     this.socket.on('player_join_response', (data: any) => {
       if (data.status === 'failure') {
         this.setState({
