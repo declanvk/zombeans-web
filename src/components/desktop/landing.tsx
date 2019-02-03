@@ -21,7 +21,10 @@ class DesktopLanding extends React.Component<Landing.IProps, undefined> {
       return (
         <div className={'z-desktop-landing-players-card z-desktop-landing-players-card' + idx} key={idx}>
           <img className={'z-desktop-landing-players-card-img animated bounce'}
-              style={{animationPlayState: (in_view ? 'running' : 'paused')}}
+              style={{
+                animationPlayState: (in_view ? 'running' : 'paused'),
+                display: (in_view ? '' : 'none')
+              }}
               src={character.normal_img}>
           
           </img>
