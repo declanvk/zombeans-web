@@ -100,18 +100,24 @@
    animation-duration: 1s;
    -webkit-animation-fill-mode: both;
    animation-fill-mode: both;
-  // -webkit-animation-timing-function: cubic-bezier(.6,.04,1,.64);
+   -webkit-animation-timing-function: linear;
    animation-timing-function: linear;
    animation-iteration-count: 1;
    -webkit-animation-iteration-count: 1;
  } 
  
-//  @-webkit-keyframes bounce {
-//    0% {transform: translateY(-1500px);}
-//    60% {transform: translateY(0);}
-//    85% {transform: translateY(-40px);}
-//    100% {transform: translateY(0);}
-//  }
+ @-webkit-keyframes bounce {
+   0% {transform: translateY(-2000px);}
+   40% {transform: translateY(0);}
+   45% {transform: translateY(-40px);}
+   50% {transform: translateY(-60px);}
+   55% {transform: translateY(-70px);}
+   60% {transform: translateY(-75px);}
+   65% {transform: translateY(-70px);}
+   70% {transform: translateY(-60px);}
+   75% {transform: translateY(-40);}
+   80% {transform: translateY(0);}
+ }
  
  @keyframes bounce { 
    0% {transform: translateY(-2000px);}
