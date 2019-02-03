@@ -43,6 +43,8 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
 
     this.socket = io('/player');
     this.joinGame = this.joinGame.bind(this);
+    this.onPress = this.onPress.bind(this);
+    this.onRelease = this.onRelease.bind(this);
   }
 
   joinGame(room_code: string, name: string) {
@@ -71,6 +73,29 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
       }
     });
   }
+  onPress(evt: any, dir: string) {
+    console.log('Press: ' + dir);
+    this.socket.emit('make_move', {
+        "pkt_name": "make_move",
+        "origin":"normal", 
+        "action":{
+          "key":dir,
+          "state":"pressed"
+        }
+    });
+  }
+
+  onRelease(evt: any, dir: string) {
+    console.log('Release: ' + dir);
+    this.socket.emit('make_move', {
+      "pkt_name": "make_move",
+      "origin":"normal", 
+      "action":{
+        "key":dir,
+        "state":"released"
+      }
+  });    
+  }
 
   render() {
     let page: any;
@@ -80,7 +105,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
           room_code_failure={this.state.room_code_failure}
           room_code_fail_reason={this.state.room_code_fail_reason}/>);
     else
-      page = (<Controller room_code={this.room_code} user={this.user} />);
+      page = (<Controller room_code={this.room_code} user={this.user} on_press = {this.onPress} on_release = {this.onRelease} />);
 
     return (
       <div>

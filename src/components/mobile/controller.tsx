@@ -15,6 +15,8 @@ namespace Controller {
   interface IProps {
     user: IUser;
     room_code: string;
+    on_release: (evt: any, dir: string) => void;
+    on_press: (evt: any, dir: string) => void;
   }
 }
 
@@ -31,9 +33,6 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
     this.state = {
       screen_orientation: screen.orientation.angle == 0 ? 'vertical' : 'horizontal'
     }
-   // this.socket = io('some endpoint');
-    this.onPress = this.onPress.bind(this);
-    this.onRelease = this.onRelease.bind(this);
   }
 
   componentDidMount() {
@@ -44,20 +43,12 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
     })
   }
 
-  onPress(evt: any, dir: string) {
-    console.log('Press: ' + dir);
-    evt.stopPropagation();
-  }
-
-  onRelease(evt: any, dir: string) {
-    console.log('Release: ' + dir);    
-  }
-
   render() {
     if (this.state.screen_orientation == 'vertical') {
       return (
-        <div>
-          <h1>Rotate Screen!</h1>
+        <div className="rotate">
+          <img src="../../../src/assets/img/rotate-phone.png"/>
+          <p>now, rotate your phone</p>
         </div>
       )
     }
@@ -70,8 +61,8 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
           <img src={characters[this.props.user.character].normal_img}/>
         </div>
         <div className='z-mobile-controller-controller'>
-          <DirectionalPad on_press={this.onPress}
-              on_release={this.onRelease}/>
+          <DirectionalPad on_press={this.props.on_press}
+              on_release={this.props.on_release}/>
 
         </div>
       </div>

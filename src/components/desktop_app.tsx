@@ -40,6 +40,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
   }
   start_game(){
     this.socket.emit("request_start_game",{});
+    //setInterval(function(){ this.socket.emit("request_update_game",{}); }, 50);
   }
 
   handleKeyPress(evt: any) {
