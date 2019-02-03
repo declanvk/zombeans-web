@@ -57,8 +57,9 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
       <div className='z-mobile-controller-page z-mobile-controller transition-item'
           style={{height: window.innerHeight, width: window.innerWidth}}>
         <div className='z-mobile-controller-player'>
-          <p className="white">{this.props.user.name}</p>
-          <img src={characters[this.props.user.character].normal_img}/>
+          <p className='players-name'>{this.props.user.name}</p>
+          <img className='players-bean' src={characters[this.props.user.character].normal_img}/>
+          <div id='oval'></div>
         </div>
         <div className='z-mobile-controller-controller'>
           <DirectionalPad on_press={this.props.on_press}
