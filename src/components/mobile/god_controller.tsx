@@ -60,25 +60,25 @@ const GodButtons = (props: GodButtons.IProps) => {
   return (
     <div className='z-mobile-god-buttons'>
       <button className='z-mobile-god-button button-1'
-          onClick={(evt)=>props.on_press(evt, 'freeze')}
+          onClick={(evt)=>props.on_press(evt, FREEZE)}
           disabled={!props.enabled[0]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
         Freeze
       </button>
       <button className='z-mobile-god-button button-2'
-          onClick={(evt)=>props.on_press(evt, 'speed up')}
+          onClick={(evt)=>props.on_press(evt, SPEED_UP)}
           disabled={!props.enabled[1]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
         Speed Up
       </button>
       <button className='z-mobile-god-button button-3'
-          onClick={(evt)=>props.on_press(evt, 'immune')}
+          onClick={(evt)=>props.on_press(evt, IMMUNE)}
           disabled={!props.enabled[2]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
         Immunity          
       </button>
       <button className='z-mobile-god-button button-4'
-          onClick={(evt)=>props.on_press(evt, 'cure')}
+          onClick={(evt)=>props.on_press(evt, CURE)}
           disabled={!props.enabled[3]}
           onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
         Cure                   
