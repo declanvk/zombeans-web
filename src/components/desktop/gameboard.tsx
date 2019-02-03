@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as io from "socket.io-client";
+import { characters } from '../../data'; 
 
 const CANVAS_ID = 'z-desktop-gameboard-canvas-id';
 export
@@ -8,8 +9,6 @@ namespace GameBoard {
   export
   interface IProps {
     room_code: string;
-    window_height: number;
-    window_width: number;
   }
 
   export
@@ -38,6 +37,8 @@ namespace GameBoard {
     user_name: string;
     character: number;
   }
+
+  
 }
 
 export
@@ -114,15 +115,17 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
 
   componentDidUpdate() {
     if (this._canvas && this.state.board_description) {
-      const canvas = this._canvas.current;
-      const ctx = canvas.getContext('2d');
+      if (this._canvas.current) {
+        const canvas = this._canvas.current;
+        const ctx = canvas.getContext('2d');
 
-      let characters = new Map()
-      for (let pair of Array.from(this.state.player_descriptions)) {
-        characters[pair[0]] = pair[1].character;
+        let characters = new Map()
+        for (let pair of Array.from(this.state.player_descriptions)) {
+          characters[pair[0]] = pair[1].character;
+        }
+
+        draw(ctx, characters, this.state.board_description, this.state.player_render_data);
       }
-
-      draw(ctx, characters, this.state.board_description, this.state.player_render_data);
     }
     
   }
@@ -140,7 +143,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
 
     return (
       <div className={'z-desktop-gameboard transition-item'}>
-        <canvas className={'z-desktop-gameboard-canvas'} id={CANVAS_ID} height={width} width={height}/>
+        <canvas className={'z-desktop-gameboard-canvas'} ref={this._canvas} id={CANVAS_ID} height={width} width={height}/>
         <div className={'gameplay-box'}></div>
       </div>
     );
@@ -152,6 +155,7 @@ function draw(ctx: CanvasRenderingContext2D, characters: Map<string, number>,
 {
   ctx.save();
 
+  ctx.clearRect(0, 0, board.width, board.height);
   drawBoard(ctx, board.width, board.height);
 
   let player_ids: Array<String> = Array.from(players, (v) => v[0]);
@@ -174,13 +178,22 @@ function drawPlayer(ctx: CanvasRenderingContext2D, x: number, y: number, charact
     ctx.fillStyle = 'brown';
   }
 
-  this.ctx.arc(x, y, radius, 0, 2*Math.PI);
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = 'black';
+
+  ctx.beginPath()
+  ctx.arc(x, y, radius, 0, 2*Math.PI);
+  ctx.stroke()
   
   ctx.restore();
 }
 
 function drawBoard(ctx: CanvasRenderingContext2D, width: number, height: number) {
   ctx.save();
+
+  ctx.lineWidth = 5;
+  ctx.strokeStyle = 'black';
+
   ctx.moveTo(0,0);
   ctx.lineTo(width, 0);
   ctx.lineTo(width, height);
