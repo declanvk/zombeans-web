@@ -6,52 +6,16 @@
    background: red;
 }
 
-$char-w: 1ch;
-$gap: .5*$char-w;
-$n-char: 6;
-$in-w: $n-char*($char-w + $gap);
+.z-mobile-container {
+   .transition-wrapper {
+      height: 100%;
+   }
+}
 
 .z-mobile-landing-page {
    transition: transform 0.5s, opacity 0.5s;
    height: 100%;
    width: 100%;
-
-   input.z-mobile-landing-form-code {
-       
-    border: none;
-      padding: 0;
-      width: $in-w;
-      background: repeating-linear-gradient(90deg, 
-         white 0, white $char-w, 
-         transparent 0, transparent $char-w + $gap) 
-         0 100%/ #{$in-w - $gap} 2px no-repeat;
-      font: 5ch droid sans mono, consolas, monospace;
-      letter-spacing: $gap;
-      font-size: 55px;
-      text-transform: uppercase;
-      
-      &:focus {
-         outline: none;
-         color: white;
-      }
-   }
-
-   .z-mobile-landing-form input:first-of-type {
-      width: 300px;
-      border: 3px solid;
-      font-size: 1.25em;
-      padding: 2% 0;
-      text-align: center;
-      text-transform: uppercase;
-      font-family: 'Love Ya Like A Sister', cursive;
-      letter-spacing: 5px;
-      background-color: #FFFFFF;
-      border-radius: 5px;
-      -webkit-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
-      -moz-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
-      box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
-  
-   }
 
    &.transition-appear {
       opacity: 0;
@@ -95,6 +59,60 @@ $in-w: $n-char*($char-w + $gap);
    &.transition-leave.transition-leave-active {
       opacity: 0;
       transform: translate3d(100%, 0, 0);
+   }
+}
+
+
+.z-mobile-landing-form-container {
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.z-mobile-landing-form {
+   width: 300px;
+   height: 400px;
+}
+
+.z-mobile-landing-form input:first-of-type {
+   width: 96%;
+   border: 3px solid;
+   font-size: 1.25em;
+   padding: 5px 0;
+   text-align: center;
+   text-transform: uppercase;
+   font-family: 'Love Ya Like A Sister', cursive;
+   letter-spacing: 5px;
+   background-color: #FFFFFF;
+   border-radius: 5px;
+   -webkit-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
+   -moz-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
+   box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
+
+}
+
+$char-w: 1ch;
+$gap: .5*$char-w;
+$n-char: 6;
+$in-w: $n-char*($char-w + $gap);
+
+input.z-mobile-landing-form-code {    
+   border: none;
+   width: $in-w;
+   background: repeating-linear-gradient(90deg, 
+      white 0, white $char-w, 
+      transparent 0, transparent $char-w + $gap) 
+      0 100%/ #{$in-w - $gap} 2px no-repeat;
+   font: 5ch droid sans mono, consolas, monospace;
+   letter-spacing: $gap;
+   font-size: 55px;
+   text-transform: uppercase;
+   transform: translateX($gap / 2);
+   &:focus {
+      outline: none;
+      color: white;
    }
 }
 

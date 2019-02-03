@@ -132,7 +132,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
           screen_orientation={this.state.screen_orientation}/>);
 
     return (
-      <div style={{height: this.state.height, width: this.state.width}}>
+      <div className={'z-mobile-container'} style={{height: this.state.height, width: this.state.width}}>
         <PageTransition compareChildren={MobileApp.compareChildren}>
           {page}
         </PageTransition>
