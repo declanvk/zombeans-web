@@ -37,7 +37,7 @@ const characters = [
   {normal_img: kidney_img,   zombie_img: kidney_zombie_img},
   {normal_img: pea_img,      zombie_img: pea_zombie_img},
   {normal_img: pinto_img,    zombie_img: pinto_zombie_img},
-  {normal_img: brown_img,    zombie_img: brown_zombie_img},
+  {normal_img: chickpea_img,    zombie_img: chickpea_zombie_img},
   {normal_img: edamame_img,    zombie_img: edamame_zombie_img},
   {normal_img: red_img,    zombie_img: red_zombie_img},
   {normal_img: white_img,    zombie_img: white_zombie_img},

@@ -104,6 +104,30 @@ $green: #b2d235;
    }
 }
 
+.z-desktop-landing-god {
+   height: 230px;
+   position: absolute;
+   top: 7%;
+   left: 82%;
+
+   img {
+      margin-top: 1%;
+      // width: 100%;
+      height: 77%;
+   }
+
+   h1 {
+    font-size: 24px;
+    letter-spacing: 3px;
+    margin: 0;
+    width: 208px;
+    padding: 2px 1px;
+    background: white;
+    border-radius: 3px;
+    transition: opacity 0.7s;
+   }
+}
+
 .animated {
    -webkit-animation-duration: 1s;
    animation-duration: 1s;
@@ -158,12 +182,12 @@ $green: #b2d235;
 
 .z-desktop-landing-players-card2 {
    left: 20%;
-   top: 67%;
+   top: 70%;
 }
 
 .z-desktop-landing-players-card3 {
-   left: 33%;
-   top: 50%;
+   left: 31%;
+   top: 56%;
 }
 
 .z-desktop-landing-players-card4 {
@@ -192,8 +216,8 @@ $green: #b2d235;
 }
 
 .z-desktop-landing-players-card9 {
-   left: 85%;
-   top: 30%;
+   left: 10%;
+   top: 47%;
 }
 
 .logo {
