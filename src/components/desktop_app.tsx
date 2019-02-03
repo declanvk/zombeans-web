@@ -40,6 +40,7 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
   }
   start_game(){
     this.socket.emit("request_start_game",{});
+    //setInterval(function(){ this.socket.emit("request_update_game",{}); }, 50);
   }
 
   handleKeyPress(evt: any) {
@@ -57,14 +58,14 @@ default class DesktopApp extends React.Component<any, DesktopApp.IState> {
           room_code: data.room_code
        });
     });
-    // this.socket.on('player_joined', (data: any) => {
-    //    let users = data.players.map((user: any) => {
-    //       return {name: user.name, character: user.character}
-    //    });
-    //    this.setState({
-    //       users: users
-    //    });
-    // });
+    this.socket.on('player_joined', (data: any) => {
+       let users = data.players.map((user: any) => {
+          return {name: user.user_name, character: user.character}
+       });
+       this.setState({
+          users: users
+       });
+    });
   }
 
   render() {

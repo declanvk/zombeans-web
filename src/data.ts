@@ -18,16 +18,15 @@ const pinto_img = require('./assets/img/pinto.png');
 const pinto_zombie_img = require('./assets/img/pinto-zombie.png');
 
 export
-const characters = {
-  0:  {normal_img: black_img,    zombie_img: black_zombie_img},
-  1:  {normal_img: chickpea_img, zombie_img: chickpea_zombie_img},
-  2:  {normal_img: coffee_img,   zombie_img: coffee_zombie_img},
-  3:  {normal_img: kidney_img,   zombie_img: kidney_zombie_img},
-  4:  {normal_img: pea_img,      zombie_img: pea_zombie_img},
-  5:  {normal_img: pinto_img,    zombie_img: pinto_zombie_img},
-  6:  {normal_img: black_img,    zombie_img: black_zombie_img},
-  7:  {normal_img: black_img,    zombie_img: black_zombie_img},
-  8:  {normal_img: black_img,    zombie_img: black_zombie_img},
-  9:  {normal_img: black_img,    zombie_img: black_zombie_img},
-  10: {normal_img: black_img,    zombie_img: black_zombie_img},
-}
+const characters = [
+  {normal_img: black_img,    zombie_img: black_zombie_img},
+  {normal_img: chickpea_img, zombie_img: chickpea_zombie_img},
+  {normal_img: coffee_img,   zombie_img: coffee_zombie_img},
+  {normal_img: kidney_img,   zombie_img: kidney_zombie_img},
+  {normal_img: pea_img,      zombie_img: pea_zombie_img},
+  {normal_img: pinto_img,    zombie_img: pinto_zombie_img},
+  {normal_img: black_img,    zombie_img: black_zombie_img},
+  {normal_img: black_img,    zombie_img: black_zombie_img},
+  {normal_img: black_img,    zombie_img: black_zombie_img},
+  {normal_img: black_img,    zombie_img: black_zombie_img},
+]

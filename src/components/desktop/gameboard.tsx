@@ -38,15 +38,18 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
     this.ctx = this.canvas.getContext('2d');
     this.socket.on('game_starting', (data: any) => {
       console.log(data);
-      this.boardSize[0] = data.width;
-      this.boardSize[1] = data.height
-      this.playerRadius = data["playerRadius"];
+      data =  data["board_description"];
+      this.boardSize[0] = data["width"];
+      this.boardSize[1] = data["height"];
+      this.playerRadius = data["player_radius"];
       console.log("game starting message");
     });
     this.socket.on('game_tick', (data: any) => {
       console.log("here");
-      this.players = data[0]
-      this.gameState = data[1];
+      console.log(data);
+      this.players = data["player_pos_data"]
+      console.log(this.players);
+      console.log(this.boardSize);
       this.draw();
     });
     this.socket.on("game_view_response", (data:any) => {
@@ -54,21 +57,13 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
       this.props.gameboard_ready();
     });
     this.socket.emit("request_game_view", {"room_code":this.props.room_code})
-    this.mimic_server();
     this.draw();
 
-  }
-  mimic_server(){
-      this.boardSize[0] = 1000;
-      this.boardSize[1] = 1000;
-      this.playerRadius = 25;
-      this.players = {"1":{"position":{"x":50,"y":50}, "isZombie":false}}
   }
   draw(){
     this.ctx.moveTo(0,0);
     this.ctx.clearRect(0,0,this.boardSize[0], this.boardSize[1]);
     this.makeBoard();
-    this.players[1]["position"].x += 10;
     for(var i in this.players){
         this.drawPlayer(this.players[i]["position"], this.playerRadius, i);
     }
@@ -83,6 +78,9 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
     this.ctx.stroke();
   }
   drawPlayer(pos:any, radius:number, id:string){
+    console.log(id)
+    console.log(pos);
+    console.log(radius)
     this.ctx.beginPath()
     if(this.players[id]["isZombie"] === true){
       this.ctx.fillStyle = 'green';
@@ -90,13 +88,12 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
       this.ctx.fillStyle = 'brown';
     }
     this.ctx.arc(pos.x, pos.y, radius, 0, 2*Math.PI);
-    this.ctx.fill();
+    this.ctx.stroke();
   }
   render() {
     return (
       <div className={'z-desktop-gameboard transition-item'}>
-        <canvas id={CANVAS_ID} height={800} width={1024}
-            className={'z-desktop-gameboard-canvas'}/>
+        <canvas id={CANVAS_ID} height={800} width={1200}/>
       </div>
     );
   }

@@ -26,6 +26,7 @@ $in-w: $n-char*($char-w + $gap);
       font: 5ch droid sans mono, consolas, monospace;
       letter-spacing: $gap;
       font-size: 55px;
+      text-transform: uppercase;
       
       &:focus {
          outline: none;
