@@ -7,7 +7,7 @@ import PageTransition from 'react-router-page-transition';
 import { IUser } from "../types";
 import "./../assets/scss/mobile_app.scss";
 
-const GOD_CHAR = 5;
+const GOD_CHAR = 2;
 
 export
 namespace MobileApp {
@@ -103,7 +103,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
   private _onGodPress(evt: any, type: number) {
      this.socket.emit('make_move', {
       "pkt_name": "make_move",
-      "origin":"normal",
+      "origin":"god",
       "action":{
         "code":type,
       }
@@ -147,7 +147,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     });
     this.socket.on('god_spells', (data: any) => {
       let enable_spells = [false];
-      data.god_spells.possible.array.forEach(s => {
+      data.god_spells.possible.forEach(s => {
         enable_spells[s-1] = true;
       });
       this.setState({

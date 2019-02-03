@@ -106,7 +106,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
 
   private _onGameTick(data: any): void {
     let player_render_data: Map<string, GameBoard.PlayerRenderData> = data['player_pos_data'];
-
+    console.log(data);
     this._player_render_data = player_render_data;
   }
 
