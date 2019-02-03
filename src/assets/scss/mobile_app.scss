@@ -124,6 +124,17 @@ $in-w: $n-char*($char-w + $gap);
    display: flex;
    flex-direction: column;
    justify-content: center;
+
+   .z-mobile-dpad-right {
+       transform: rotate(90deg);
+   }
+   
+   .z-mobile-dpad-left {
+       transform: rotate(-90deg);
+   }
+   .z-mobile-dpad-down {
+       transform: rotate(180deg);
+   }
 }
 
 .z-mobile-dpad-button {
