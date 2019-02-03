@@ -60,6 +60,7 @@
       opacity: 0;
       transform: translate3d(100%, 0, 0);
    }
+
 }
 
 
@@ -122,8 +123,9 @@ input.z-mobile-landing-form-code {
 }
 
 .z-mobile-controller-player {
-   height: 100%;
-   width: 35%;
+    height: 100%;
+    width: 50%;
+    padding: 4% 0;
 }
 
 .z-mobile-controller-controller {
@@ -168,18 +170,16 @@ input.z-mobile-landing-form-code {
 }
 
 .join-button {
+    border: none;
     margin-top: 25%;
     font-family: 'Love Ya Like A Sister', cursive;
-	-moz-box-shadow: 0px 10px 14px -7px #276873;
-	-webkit-box-shadow: 0px 10px 14px -7px #276873;
-	box-shadow: 0px 10px 14px -7px #276873;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
-	background:-moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
-	background:-webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
-	background:-o-linear-gradient(top, #599bb3 5%, #408c99 100%);
-	background:-ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
-	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99',GradientType=0);
+	box-shadow: 8px 10px 23px -12px rgba(0, 0, 0, 0.75);
+	// background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
+	// background:-moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	// background:-webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	// background:-o-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	// background:-ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
+    background: linear-gradient(to bottom, lightblue 5%, #5ba2cd 100%);	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99',GradientType=0);
 	background-color:#599bb3;
 	-moz-border-radius:8px;
 	-webkit-border-radius:8px;
@@ -191,7 +191,9 @@ input.z-mobile-landing-form-code {
 	font-weight:bold;
     padding: 0px 56px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #3d768a;
+    text-shadow: 0px 1px 0px darkslategrey;
+    text-transform: uppercase;
+    letter-spacing: 5px;
 }
 .join-button:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #599bb3));
@@ -217,3 +219,32 @@ input.z-mobile-landing-form-code {
     padding-top: 50%;
     color: white;
 }
+
+img.players-bean {
+    width: 200px;
+}
+
+.players-name {
+    color: black;
+    background: white;
+    font-size: 1.5em;
+    letter-spacing: 4px;
+    border: 3px solid;
+    border-radius: 10px;
+    padding: 0 10px;
+    width: 220px;
+    margin: auto;
+    margin-bottom: 28px;
+}
+
+#oval {
+    width: 26%;
+    height: 81px;
+    background: black;
+    border-radius: 100px / 50px;
+    opacity: 0.15;
+    margin-left: 9%;
+    margin-top: -10%;
+    position: fixed;
+    z-index: -9999;
+  }
