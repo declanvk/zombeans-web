@@ -74,7 +74,11 @@
 
 .z-mobile-landing-form {
    width: 300px;
-   height: 400px;
+   height: 300px;
+
+   .top {
+      margin-top: 0px;
+   }
 }
 
 .z-mobile-landing-form input:first-of-type {
@@ -94,7 +98,7 @@
 
 }
 
-$char-w: 1ch;
+$char-w: 30px;
 $gap: .5*$char-w;
 $n-char: 6;
 $in-w: $n-char*($char-w + $gap);
@@ -108,7 +112,7 @@ input.z-mobile-landing-form-code {
       0 100%/ #{$in-w - $gap} 2px no-repeat;
    font: 5ch droid sans mono, consolas, monospace;
    letter-spacing: $gap;
-   font-size: 55px;
+   font-size: 40px;
    text-transform: uppercase;
    transform: translateX($gap / 2);
    &:focus {
@@ -171,7 +175,7 @@ input.z-mobile-landing-form-code {
 
 .join-button {
     border: none;
-    margin-top: 25%;
+    margin-top: 35px;
     font-family: 'Love Ya Like A Sister', cursive;
 	box-shadow: 8px 10px 23px -12px rgba(0, 0, 0, 0.75);
 	// background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
@@ -208,11 +212,6 @@ input.z-mobile-landing-form-code {
 .join-button:active {
 	position:relative;
 	top:1px;
-}
-
-.no-margin {
-    margin-top: 50px;
-    margin-bottom: 5px;
 }
 
 .rotate {
