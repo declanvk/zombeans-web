@@ -15,11 +15,12 @@ $in-w: $n-char*($char-w + $gap);
    transition: transform 0.5s, opacity 0.5s;
 
    input.z-mobile-landing-form-code {
-      border: none;
+       
+    border: none;
       padding: 0;
       width: $in-w;
       background: repeating-linear-gradient(90deg, 
-         dimgrey 0, dimgrey $char-w, 
+         white 0, white $char-w, 
          transparent 0, transparent $char-w + $gap) 
          0 100%/ #{$in-w - $gap} 2px no-repeat;
       font: 5ch droid sans mono, consolas, monospace;
@@ -27,8 +28,28 @@ $in-w: $n-char*($char-w + $gap);
       
       &:focus {
          outline: none;
-         color: dodgerblue;
+         color: white;
       }
+   }
+
+   .z-mobile-landing-form input:first-of-type {
+    border: 3px solid;
+    font-size: 1.25em;
+    padding: 2% 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Love Ya Like A Sister', cursive;
+    letter-spacing: 5px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    -webkit-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
+    -moz-box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
+    box-shadow: 8px 10px 23px -12px rgba(0,0,0,0.75);
+  
+   }
+
+   .z-mobile-landing-form {
+       padding-top: 25%;
    }
 
    &.transition-appear {
@@ -111,4 +132,55 @@ $in-w: $n-char*($char-w + $gap);
 .z-mobile-dpad-spacer {
    background: none;
    border: none;
+}
+
+.join-button {
+    margin-top: 25%;
+    font-family: 'Love Ya Like A Sister', cursive;
+	-moz-box-shadow: 0px 10px 14px -7px #276873;
+	-webkit-box-shadow: 0px 10px 14px -7px #276873;
+	box-shadow: 0px 10px 14px -7px #276873;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
+	background:-moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	background:-webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	background:-o-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	background:-ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99',GradientType=0);
+	background-color:#599bb3;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:20px;
+	font-weight:bold;
+    padding: 0px 56px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3d768a;
+}
+.join-button:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #599bb3));
+	background:-moz-linear-gradient(top, #408c99 5%, #599bb3 100%);
+	background:-webkit-linear-gradient(top, #408c99 5%, #599bb3 100%);
+	background:-o-linear-gradient(top, #408c99 5%, #599bb3 100%);
+	background:-ms-linear-gradient(top, #408c99 5%, #599bb3 100%);
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#408c99', endColorstr='#599bb3',GradientType=0);
+	background-color:#408c99;
+}
+.join-button:active {
+	position:relative;
+	top:1px;
+}
+
+.no-margin {
+    margin-top: 50px;
+    margin-bottom: -10px;
+}
+
+.rotate {
+    padding-top: 50%;
+    color: white;
 }
