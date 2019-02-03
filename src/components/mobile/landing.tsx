@@ -54,7 +54,7 @@ class MobileLanding extends React.Component<MobileLanding.IProps, MobileLanding.
             <p>what's your name?</p>
             <input value={this.state.name} onChange={this.handleNameChange} type="text" maxlength="10" />
 
-            <p>room code:</p>
+            <p className="no-margin">room code:</p>
             <input className={'z-mobile-landing-form-code'} maxLength={6} value={this.state.room_code} onChange={this.handleCodeChange} type="text" />
           
           

@@ -48,6 +48,10 @@ $in-w: $n-char*($char-w + $gap);
   
    }
 
+   .z-mobile-landing-form {
+       padding-top: 25%;
+   }
+
    &.transition-appear {
       opacity: 0;
       transform: translate3d(-100%, 0, 0);
@@ -131,6 +135,7 @@ $in-w: $n-char*($char-w + $gap);
 }
 
 .join-button {
+    margin-top: 25%;
     font-family: 'Love Ya Like A Sister', cursive;
 	-moz-box-shadow: 0px 10px 14px -7px #276873;
 	-webkit-box-shadow: 0px 10px 14px -7px #276873;
@@ -151,7 +156,7 @@ $in-w: $n-char*($char-w + $gap);
 	color:#ffffff;
 	font-size:20px;
 	font-weight:bold;
-	padding:13px 32px;
+    padding: 0px 56px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #3d768a;
 }
@@ -168,4 +173,14 @@ $in-w: $n-char*($char-w + $gap);
 .join-button:active {
 	position:relative;
 	top:1px;
+}
+
+.no-margin {
+    margin-top: 50px;
+    margin-bottom: -10px;
+}
+
+.rotate {
+    padding-top: 50%;
+    color: white;
 }
