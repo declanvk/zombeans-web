@@ -280,19 +280,6 @@ function drawPlayer(ctx: CanvasRenderingContext2D, x: number, y: number, charact
   is_zombie: boolean, radius: number, img: HTMLImageElement) {
   ctx.save();
 
-  if (is_zombie) {
-    ctx.fillStyle = 'green';
-  } else {
-    ctx.fillStyle = 'brown';
-  }
-
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = 'black';
-
-  ctx.beginPath()
-  ctx.ellipse(x, y, radius, radius, 0, 0, 2*Math.PI);
-  ctx.stroke();
-
   ctx.drawImage(img, x - (radius), y - (radius), 2 * radius, 2 * radius);
   
   ctx.restore();
