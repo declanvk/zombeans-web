@@ -15,6 +15,8 @@ namespace GameBoard {
   interface IState {
     board_description?: BoardDescription,
     player_descriptions: Map<string, PlayerDescription>;
+    game_over: boolean;
+    winner: "normal" | "zombies" | "none";
   }
 
   export
@@ -55,6 +57,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
     this._socket = io('/viewer');
 
     this._onGameStarting = this._onGameStarting.bind(this);
+    this._onGameOver = this._onGameOver.bind(this);
     this._onGameTick = this._onGameTick.bind(this);
     this._onGameViewResponse = this._onGameViewResponse.bind(this);
 
@@ -72,6 +75,8 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
     this.state = {
       board_description: null,
       player_descriptions: new Map(),
+      game_over: false,
+      winner: "none"
     };
 
     this._canvas = React.createRef();
@@ -82,7 +87,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
     var promises = Array();
     for (var i = 0; i < characters.length; i++) {
       if (zombie) {
-        promises.push(this._promiseImage(characters[i].normal_img));
+        promises.push(this._promiseImage(characters[i].zombie_img));
       } else {
         promises.push(this._promiseImage(characters[i].normal_img));
       }
@@ -100,13 +105,20 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
     })
   }
 
+  private _onGameOver(data: any): void {
+    this.setState({
+      game_over: true,
+      winner: data['winner']
+    })
+  }
+
   private _onGameStarting(data: any): void {
 
   }
 
   private _onGameTick(data: any): void {
     let player_render_data: Map<string, GameBoard.PlayerRenderData> = data['player_pos_data'];
-
+    console.log(data);
     this._player_render_data = player_render_data;
   }
 
@@ -133,7 +145,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
       });
 
       this._allZombieImages.then(loaded_characters => {
-        this.animate(loaded_characters);
+        this.animate(loaded_characters, board_description.width, board_description.height);
       })
     } else {
       console.warn(`Failed to request view access to room: ${this.props.room_code}`);
@@ -142,6 +154,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
 
   componentDidMount() {
     this._socket.on('game_starting', this._onGameStarting);
+    this._socket.on('game_over', this._onGameOver);
     this._socket.on('game_tick', this._onGameTick);
     this._socket.on('game_view_response', this._onGameViewResponse);
 
@@ -153,7 +166,7 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
   animate(loaded_characters: {
     normal: HTMLImageElement[],
     zombie: HTMLImageElement[],
-  }) {
+  }, width: number, height: number) {
     if (this && this._canvas && this.state.board_description) {
       if (this._canvas.current) {
         const canvas = this._canvas.current;
@@ -171,11 +184,11 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
     }
 
     if (this) {
-      requestAnimationFrame(() => this.animate(loaded_characters));
+      requestAnimationFrame(() => this.animate(loaded_characters, width, height));
     }
   }
 
-  render() {
+  private _getHeightWidth() {
     let height: number;
     let width: number;
     if (this.state.board_description) {
@@ -186,9 +199,37 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
       width = 1200
     }
 
+    return [width, height];
+  }
+
+  render() {
+    let [width, height] = this._getHeightWidth();
+
+    let inner_html: JSX.Element;
+    if (!this.state.game_over) {
+      inner_html = <canvas className={'z-desktop-gameboard-canvas'} ref={this._canvas} id={CANVAS_ID} height={height} width={width}/>;
+      
+    } else {
+      let win_text: string;
+      if (this.state.winner == 'normal') {
+        win_text = "The uninfected beans managed to survive and find a cure!";
+      } else if (this.state.winner == 'zombies') {
+        win_text = "The zombies won, and the bean-citizen got to have a taste of bean-brains.";
+      } else {
+        win_text = "Nobody won! Something probably went wrong, please contact customer support.";
+      }
+
+      inner_html = (
+        <div className={'z-desktop-gameover-text'}>
+          <p>The game is over!</p>
+          <p>{win_text}</p>
+        </div>
+      );
+    }
+
     return (
       <div className={'z-desktop-gameboard transition-item'}>
-        <canvas className={'z-desktop-gameboard-canvas'} ref={this._canvas} id={CANVAS_ID} height={width} width={height}/>
+        {inner_html}
       </div>
     );
   }
@@ -204,7 +245,6 @@ function draw(ctx: CanvasRenderingContext2D, player_ids: Array<string>, characte
   ctx.save();
 
   ctx.clearRect(0, 0, board.width, board.height);
-  drawBoard(ctx, board.width, board.height);
 
   for (let p_id of player_ids) {
     let player: GameBoard.PlayerRenderData = players[p_id];
@@ -240,33 +280,10 @@ function drawPlayer(ctx: CanvasRenderingContext2D, x: number, y: number, charact
   ctx.strokeStyle = 'black';
 
   ctx.beginPath()
-  ctx.arc(x, y, radius, 0, 2*Math.PI);
+  ctx.ellipse(x, y, radius, radius, 0, 0, 2*Math.PI);
   ctx.stroke();
 
-  const innerHeight = window.innerHeight;
-  const innerWidth = window.innerWidth;
-  const scale = radius * 3;
-  const ratio = innerWidth / innerHeight;
-  const img_width = scale;
-  const img_height = ratio * img_width;
-
-  ctx.drawImage(img, x, y, img_width, 1.1 * img_height);
+  ctx.drawImage(img, x - (radius), y - (radius), 2 * radius, 2 * radius);
   
-  ctx.restore();
-}
-
-function drawBoard(ctx: CanvasRenderingContext2D, width: number, height: number) {
-  ctx.save();
-
-  ctx.lineWidth = 5;
-  ctx.strokeStyle = 'black';
-
-  ctx.moveTo(0,0);
-  ctx.lineTo(width, 0);
-  ctx.lineTo(width, height);
-  ctx.lineTo(0, height);
-  ctx.lineTo(0, 0);
-  ctx.stroke();
-
   ctx.restore();
 }
