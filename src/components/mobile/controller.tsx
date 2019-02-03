@@ -62,7 +62,7 @@ const DirectionalPad = (props: DirectionalPad.IProps) => {
         <div className='z-mobile-dpad-left z-mobile-dpad-button'
             onTouchStart={(evt)=>props.on_press(evt, 'left')}
             onTouchEnd={(evt)=>props.on_release(evt, 'left')}
-            onContextMenu={(evt)=>evt.preventDefault()}>
+            onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
 
           
         </div>
@@ -71,14 +71,14 @@ const DirectionalPad = (props: DirectionalPad.IProps) => {
         <div className='z-mobile-dpad-up z-mobile-dpad-button'
             onTouchStart={(evt)=>props.on_press(evt, 'up')}
             onTouchEnd={(evt)=>props.on_release(evt, 'up')}
-            onContextMenu={(evt)=>evt.preventDefault()}>
+            onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
           
         </div>
         <div className='z-mobile-dpad-button z-mobile-dpad-spacer' />
         <div className='z-mobile-dpad-down z-mobile-dpad-button'
             onTouchStart={(evt)=>props.on_press(evt, 'down')}
             onTouchEnd={(evt)=>props.on_release(evt, 'down')}
-            onContextMenu={(evt)=>evt.preventDefault()}>
+            onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
           
         </div>
       </div>
@@ -86,7 +86,7 @@ const DirectionalPad = (props: DirectionalPad.IProps) => {
         <div className='z-mobile-dpad-right z-mobile-dpad-button'
             onTouchStart={(evt)=>props.on_press(evt, 'right')}
             onTouchEnd={(evt)=>props.on_release(evt, 'right')}
-            onContextMenu={(evt)=>evt.preventDefault()}>
+            onContextMenu={(evt)=>{evt.preventDefault(); evt.stopPropagation()}}>
           
         </div>
       </div>
