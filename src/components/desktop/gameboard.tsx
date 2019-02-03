@@ -3,7 +3,6 @@ import * as io from "socket.io-client";
 import { deflateRaw } from "zlib";
 
 const CANVAS_ID = 'z-desktop-gameboard-canvas-id';
-
 export
 namespace GameBoard {
 
@@ -20,7 +19,7 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
   socket: SocketIO.Socket;
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
-  players:any;
+  players = {};
   boardSize = [0,0];
   playerRadius:number
   gameState = "";
@@ -38,27 +37,52 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
     this.ctx = this.canvas.getContext('2d');
     this.socket.on('game_starting', (data: any) => {
       console.log(data);
-      data =  data["board_description"];
-      this.boardSize[0] = data["width"];
-      this.boardSize[1] = data["height"];
-      this.playerRadius = data["player_radius"];
       console.log("game starting message");
     });
     this.socket.on('game_tick', (data: any) => {
       console.log("here");
       console.log(data);
-      this.players = data["player_pos_data"]
+      this.update_player_pos(data["player_pos_data"])
       console.log(this.players);
       console.log(this.boardSize);
       this.draw();
     });
     this.socket.on("game_view_response", (data:any) => {
       console.log(data);
+      data = data["aux_data"]
+      console.log(data);
+      var cur_players = data["current_players"]
+      for(var player = 0; player < cur_players.length; player++){
+        this.players[cur_players[player]["player_id"]] = 
+        {
+          "id": cur_players[player]["player_id"],
+          "user_name": cur_players[player]["user_name"],
+          "character": cur_players[player]["character"],
+          "isZombie": false,
+          "position":{
+            "x":0,
+            "y":0
+          }
+        }
+      }
+      console.log(this.players)
+      var board_data = data["board_description"];
+      this.boardSize[0] = board_data["width"];
+      this.boardSize[1] = board_data["height"];
+      this.playerRadius = board_data["player_radius"];
       this.props.gameboard_ready();
     });
     this.socket.emit("request_game_view", {"room_code":this.props.room_code})
     this.draw();
 
+  }
+  update_player_pos(data:any){
+    console.log("here");
+    console.log(data);
+    for(var player in data){
+      this.players[player]["position"] = data[player]["position"];
+      this.players[player]["isZombie"] = data[player]["isZombie"];
+    }
   }
   draw(){
     this.ctx.moveTo(0,0);
