@@ -37,7 +37,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
       display: 'landing',
       room_code_failure: false,
       room_code_fail_reason: '',
-      screen_orientation:  screen.orientation.angle == 0 ? 'vertical' : 'horizontal',
+      screen_orientation:  window.orientation == 0 ? 'vertical' : 'horizontal',
       height: screen.availHeight,
       width: screen.availWidth
     };
@@ -67,7 +67,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
 
   private _handleResize() {
     this.setState({
-      screen_orientation: screen.orientation.angle == 0 ? 'vertical' : 'horizontal',
+      screen_orientation: window.orientation == 0 ? 'vertical' : 'horizontal',
       height: screen.availHeight,
       width: screen.availWidth
     });
