@@ -98,7 +98,7 @@
 
 }
 
-$char-w: 30px;
+$char-w: 1ch;
 $gap: .5*$char-w;
 $n-char: 6;
 $in-w: $n-char*($char-w + $gap);
