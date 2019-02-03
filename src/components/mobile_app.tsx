@@ -7,7 +7,7 @@ import PageTransition from 'react-router-page-transition';
 import { IUser } from "../types";
 import "./../assets/scss/mobile_app.scss";
 
-const GOD_CHAR = 2;
+const GOD_CHAR = 1;
 
 export
 namespace MobileApp {
