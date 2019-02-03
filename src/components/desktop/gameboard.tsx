@@ -117,7 +117,7 @@ class GameBoard extends React.Component<GameBoard.IProps, undefined> {
   render() {
     return (
       <div className={'z-desktop-gameboard transition-item'}>
-        <canvas id={CANVAS_ID} height={800} width={1200}/>
+        <canvas className={'z-desktop-gameboard-canvas'} id={CANVAS_ID} height={800} width={1200}/>
         <div className={'gameplay-box'}></div>
       </div>
     );

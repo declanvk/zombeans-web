@@ -186,6 +186,14 @@
   margin-left: -8%;
 }
 
+.z-desktop-gameboard-canvas {
+   height: 90%;
+   width: 90%;
+   position: absolute;
+   top: 5%;
+   left: 5%;
+}
+
 .gameplay-box {
   position: absolute;
     height: 90%;
@@ -201,4 +209,5 @@
     background-size: 300px;
     top: 5%;
     left: 5%;
+    z-index: -1;
 }
