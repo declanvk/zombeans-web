@@ -5,9 +5,11 @@ import { characters } from '../../data';
 const CANVAS_ID = 'z-desktop-gameboard-canvas-id';
 const gameover_img = require("../../../src/assets/img/game-over.png");
 const wizard = require("../../../src/assets/img/wizard-v2.png");
-const bean1 = require("../../../src/assets/img/pinto.png");
+const bean0 = require("../../../src/assets/img/pinto-zombie.png");
+const bean1 = require("../../../src/assets/img/red-zombie.png");
 const bean2 = require("../../../src/assets/img/chickpea.png");
-const bean3 = require("../../../src/assets/img/edamame.png");
+const bean3 = require("../../../src/assets/img/coffee.png");
+const bean4 = require("../../../src/assets/img/edamame.png");
 
 export
 namespace GameBoard {
@@ -230,9 +232,11 @@ class GameBoard extends React.Component<GameBoard.IProps, GameBoard.IState> {
           <p>{win_text}</p>
           <div className={'characters'}>
             <img className={'char-1'} src={wizard}/>
-            <img className={'char-2'} src={bean1}/>
-            <img className={'char-2'} src={bean2}/>
-            <img className={'char-2'} src={bean3}/>
+            <img className={'char-2'} src={bean0}/>
+            <img className={'char-big'} src={bean1}/>
+            <img className={'char-3'} src={bean2}/>
+            <img className={'char-3'} src={bean3}/>
+            <img className={'char-3'} src={bean4}/>
           </div>
         </div>
       );
