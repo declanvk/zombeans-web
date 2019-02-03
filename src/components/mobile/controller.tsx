@@ -14,12 +14,15 @@ namespace Controller {
     on_release: (evt: any, dir: string) => void;
     on_press: (evt: any, dir: string) => void;
     screen_orientation: 'vertical' | 'horizontal';
+    is_zombie: boolean;
   }
 }
 
 export
 class Controller extends React.Component<Controller.IProps, any> {
   render() {
+    let char = this.props.user.character;
+
     if (this.props.screen_orientation == 'vertical') {
       return (
         <div className="z-mobile-controller-page transition-item rotate">
@@ -33,7 +36,8 @@ class Controller extends React.Component<Controller.IProps, any> {
       <div className='z-mobile-controller-page z-mobile-controller transition-item'>
         <div className='z-mobile-controller-player'>
           <p className='players-name'>{this.props.user.name}</p>
-          <img className='players-bean' src={characters[this.props.user.character].normal_img}/>
+          <img className='players-bean'
+              src={this.props.is_zombie ? characters[char].zombie_img : characters[char].normal_img}/>
           <div id='oval'></div>
         </div>
         <div className='z-mobile-controller-controller'>

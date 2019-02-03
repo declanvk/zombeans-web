@@ -55,7 +55,7 @@ class DesktopLanding extends React.Component<Landing.IProps, undefined> {
       <div className={'z-desktop-landing-page transition-item'} >
         <img className="logo" src={logo} />
         
-        <p className='white'>Go to <span className='website'>Zombeans.HerokuApp.com</span> on your phone <br></br> and enter the room code:</p>
+        <p className='white'>Go to <span className='website'>Zombeans.HerokuApp.com</span> on your phone <br/> and enter the room code. Then press enter to begin.</p>
         <div className={'z-desktop-landing-code'} >
           <p><span className="z-bold">{this.props.room_code}</span></p>
         </div>

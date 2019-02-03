@@ -255,10 +255,17 @@ $green: #b2d235;
   justify-content: space-evenly;
   align-items: flex-end;
   .char-1 {
-    height: 350px;
+    height: 355px;
   }
   .char-2 {
-    height: 160px;
+    height: 180px;
+    transform: scaleX(-1);
+  }
+  .char-3 {
+    height: 140px;
+  }
+  .char-big {
+    height: 180px;
   }
 }
 

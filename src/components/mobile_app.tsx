@@ -20,6 +20,7 @@ namespace MobileApp {
     height: number;
     width: number;
     possible_spells: boolean[];
+    is_zombie: boolean;
   }
 }
 
@@ -44,7 +45,8 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
       screen_orientation:  window.orientation == 0 ? 'vertical' : 'horizontal',
       height: screen.availHeight,
       width: screen.availWidth,
-      possible_spells: [false, false, false, false]
+      possible_spells: [false, false, false, false],
+      is_zombie: false,
     };
     this.user = {
       name: '',
@@ -141,7 +143,8 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
           display = 'controller';
 
         this.setState({
-          display: display
+          display: display,
+          is_zombie: this.user.character == 0
         });
       }
     });
@@ -153,6 +156,15 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
 
       this.setState({
         possible_spells: enable_spells
+      })
+    });
+    this.socket.on('status_change', (data: any) => {
+      console.log('status change!!');
+      console.log(data)
+      this.setState((state) => {
+        return {
+          is_zombie: !state.is_zombie
+        }
       })
     });
   }
@@ -175,7 +187,7 @@ default class MobileApp extends React.Component<any, MobileApp.IState> {
     else
       page = (<Controller room_code={this.room_code} user={this.user}
           on_press = {this._onPress} on_release = {this._onRelease}
-          screen_orientation={this.state.screen_orientation}/>);
+          screen_orientation={this.state.screen_orientation} is_zombie={this.state.is_zombie} />);
 
     return (
       <div className={'z-mobile-container'} style={{height: this.state.height, width: this.state.width}}>
