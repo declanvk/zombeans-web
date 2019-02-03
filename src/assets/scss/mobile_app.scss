@@ -75,7 +75,7 @@ $in-w: $n-char*($char-w + $gap);
    }
 }
 
-.z-mobile-controller {
+.z-mobile-controller-page {
    transition: transform 0.5s, opacity 0.5s;
 
    &.transition-appear {

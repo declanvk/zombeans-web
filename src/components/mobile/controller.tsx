@@ -3,7 +3,7 @@ import * as io from "socket.io-client";
 import {IUser} from '../../types';
 import {characters} from "../../data";
 
-const CANVAS_ID = 'z-gameboard-canvas-id';
+const rotate_phone = require("../../../src/assets/img/rotate-phone.png");
 
 export
 namespace Controller {
@@ -24,7 +24,6 @@ export
 class Controller extends React.Component<Controller.IProps, Controller.IState> {
 
   socket: SocketIO.Socket;
-  canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
 
   constructor(props: any) {
@@ -46,15 +45,15 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
   render() {
     if (this.state.screen_orientation == 'vertical') {
       return (
-        <div className="rotate">
-          <img src="../../../src/assets/img/rotate-phone.png"/>
+        <div className="z-mobile-controller-page transition-item rotate">
+          <img src={rotate_phone}/>
           <p>now, rotate your phone</p>
         </div>
       )
     }
 
     return (
-      <div className='z-mobile-controller transition-item'
+      <div className='z-mobile-controller-page z-mobile-controller transition-item'
           style={{height: window.innerHeight, width: window.innerWidth}}>
         <div className='z-mobile-controller-player'>
           <p className="white">{this.props.user.name}</p>
