@@ -57,7 +57,7 @@ class Controller extends React.Component<Controller.IProps, Controller.IState> {
     if (this.state.screen_orientation == 'vertical') {
       return (
         <div>
-          <h1>Rotate Screen!</h1>
+          <p>please rotate your phone</p>
         </div>
       )
     }
